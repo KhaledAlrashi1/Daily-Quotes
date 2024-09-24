@@ -1,24 +1,215 @@
+/* Body styling with animated background */
 body {
-    font-family: Arial, sans-serif;
-    margin: 20px;
-}
-
-h1, h2 {
+    margin: 0;
+    padding: 0;
+    font-family: 'Montserrat', sans-serif;
     color: #333;
+    overflow-x: hidden;
 }
 
-ul {
-    list-style-type: none;
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: -50%;
+    width: 200%;
+    height: 100%;
+    background: linear-gradient(-45deg, #e0f7e0, #a8e6a8, #d0ffd0, #b0f4b0);
+    background-size: 400% 400%;
+    animation: gradientAnimation 15s ease infinite;
+    z-index: -1;
 }
 
-li {
-    background: #f0f0f0;
-    margin: 5px 0;
-    padding: 10px;
+@keyframes gradientAnimation {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
 }
 
-button {
-    margin: 5px;
-    padding: 10px 15px;
-    font-size: 16px;
+/* Container styling */
+.container {
+    margin-top: 20px;
+    margin-bottom: 20px;
 }
+
+/* Navigation bar */
+.navbar {
+    background-color: rgba(0, 100, 0, 0.8);
+    width: 100%;
+    top: 0;
+    z-index: 10;
+    padding-top: 0.25rem;
+    padding-bottom: 0.25rem;
+}
+
+.navbar .navbar-brand {
+    font-size: 1.5em; /* Reduce the font size */
+}
+.navbar .navbar-brand:hover {
+    color: #d4edda !important;
+}
+
+.navbar .nav-link {
+    color: #ffffff !important;
+}
+
+.navbar .nav-link:hover {
+    color: #d4edda !important;
+}
+
+/* Heading */
+h1 {
+    color: #004d00;
+    text-shadow: 1px 1px 2px #fff;
+    margin-bottom: 40px;
+}
+
+/* Quote cards */
+.quote-list {
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.card {
+    background-color: rgba(255, 255, 255, 0.9);
+    border: none;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.card .card-body {
+    position: relative;
+    padding: 20px;
+}
+
+.card .card-text {
+    font-size: 1.3em;
+    font-style: italic;
+    color: #333;
+    margin-bottom: 20px;
+}
+
+.card .quote-actions {
+    /* position: absolute; */
+    /* top: 20px; */
+    /* right: 20px; */
+    margin-top: 10px;
+}
+
+.card .btn-outline-primary {
+    color: #006400;
+    border-color: #006400;
+    margin-right: 5px;
+}
+
+.card .btn-outline-primary:hover {
+    background-color: #006400;
+    color: #fff;
+}
+
+.card .btn-outline-danger {
+    color: #8b0000;
+    border-color: #8b0000;
+}
+
+.card .btn-outline-danger:hover {
+    background-color: #8b0000;
+    color: #fff;
+}
+
+/* Buttons */
+.btn-primary {
+    background-color: #006400;
+    border-color: #006400;
+}
+
+.btn-primary:hover {
+    background-color: #004d00;
+    border-color: #004d00;
+}
+
+.btn-success {
+    background-color: #228b22;
+    border-color: #228b22;
+}
+
+.btn-success:hover {
+    background-color: #006400;
+    border-color: #006400;
+}
+
+/* Form styling */
+.form-group label {
+    color: #004d00;
+    font-weight: bold;
+}
+
+.form-control {
+    border-radius: 5px;
+    border: 1px solid #006400;
+}
+
+.form-control:focus {
+    border-color: #228b22;
+    box-shadow: 0 0 5px rgba(34, 139, 34, 0.5);
+}
+
+/* Footer */
+footer {
+    background-color: rgba(0, 100, 0, 0.8);
+    color: #fff;
+    padding: 10px 0;
+    text-align: center;
+    width: 100%;
+    bottom: 0;
+}
+
+/* Adjustments for spacing */
+.mb-3, .my-4 {
+    margin-bottom: 1.5rem !important;
+}
+
+.mt-4 {
+    margin-top: 1.5rem !important;
+}
+
+/* Adjustments for mobile */
+@media (max-width: 576px) {
+    .card .quote-actions {
+        position: static;
+        margin-top: 10px;
+    }
+}
+
+/* Form buttons */
+#addQuoteBtn {
+    background-color: #006400;
+    border-color: #006400;
+    color: #fff;
+}
+
+#addQuoteBtn:hover {
+    background-color: #004d00;
+    border-color: #004d00;
+}
+
+.btn-outline-secondary {
+    color: #006400;
+    border-color: #006400;
+}
+
+.btn-outline-secondary:hover {
+    background-color: #006400;
+    color: #fff;
+    border-color: #006400;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+    transition: transform 0.2s;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+

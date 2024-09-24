@@ -6,15 +6,10 @@ import os
 from werkzeug.utils import secure_filename
 import pandas as pd  # If using pandas
 import secrets
-UPLOAD_FOLDER = 'uploads'
-ALLOWED_EXTENSIONS = {'csv'}
+from datetime import datetime
 
 app = Flask(__name__)
 app.secret_key = secrets.token_hex(32)
-
-app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
-if not os.path.exists(UPLOAD_FOLDER):
-    os.makedirs(UPLOAD_FOLDER)
 
 # Function to get a database connection
 def get_db_connection():
@@ -24,9 +19,8 @@ def get_db_connection():
 
 def init_db():
     conn = get_db_connection()
-    # Drop existing tables (optional)
-    conn.execute('DROP TABLE IF EXISTS quotes')
-    # Create quotes table without user_id
+    # # Drop existing tables (optional)
+    # conn.execute('DROP TABLE IF EXISTS quotes')
     conn.execute('''
         CREATE TABLE IF NOT EXISTS quotes (
             id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -67,16 +61,19 @@ def refresh_quotes():
 @app.route('/add', methods=('GET', 'POST'))
 def add_quote():
     if request.method == 'POST':
-        quote_text = request.form.get('quote')
-        if quote_text:
+        # Retrieve all quote inputs from the form
+        quotes_list = request.form.getlist('quotes')
+        # Remove any empty strings and strip whitespace
+        quotes_list = [quote.strip() for quote in quotes_list if quote.strip()]
+        if quotes_list:
             conn = get_db_connection()
-            conn.execute('INSERT INTO quotes (text) VALUES (?)', (quote_text,))
+            conn.executemany('INSERT INTO quotes (text) VALUES (?)', [(quote,) for quote in quotes_list])
             conn.commit()
             conn.close()
-            flash('Quote added successfully!', 'success')
+            flash(f'{len(quotes_list)} quote(s) added successfully!', 'success')
             return redirect(url_for('home'))
         else:
-            flash('Please enter a quote.', 'danger')
+            flash('Please enter at least one quote.', 'danger')
     return render_template('add_quote.html')
 
 @app.route('/edit/<int:id>', methods=('GET', 'POST'))
@@ -107,37 +104,28 @@ def delete_quote(id):
     flash('Quote deleted successfully!', 'success')
     return redirect(url_for('home'))
 
+# Route to display all quotes
+@app.route('/all_quotes')
+def all_quotes():
+    # Get the 'per_page' parameter from the query string, default to 10
+    per_page = request.args.get('per_page', 10, type=int)
+    # Get the 'page' parameter from the query string, default to 1
+    page = request.args.get('page', 1, type=int)
 
-def allowed_file(filename):
-    return '.' in filename and filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
+    conn = get_db_connection()
+    # Get total number of quotes
+    total_quotes = conn.execute('SELECT COUNT(*) FROM quotes').fetchone()[0]
+    # Calculate total pages
+    total_pages = (total_quotes + per_page - 1) // per_page
 
-@app.route('/upload', methods=['GET', 'POST'])
-def upload_csv():
-    if request.method == 'POST':
-        if 'file' not in request.files:
-            flash('No file part', 'danger')
-            return redirect(request.url)
-        file = request.files['file']
-        if file.filename == '':
-            flash('No selected file', 'danger')
-            return redirect(request.url)
-        if file and allowed_file(file.filename):
-            try:
-                # Using pandas
-                df = pd.read_csv(file.stream, header=None)
-                quotes_list = df[0].tolist()
-                conn = get_db_connection()
-                conn.executemany('INSERT INTO quotes (text) VALUES (?)', [(quote,) for quote in quotes_list])
-                conn.commit()
-                conn.close()
-                flash('Quotes uploaded successfully!', 'success')
-            except Exception as e:
-                flash(f'Error processing CSV file: {e}', 'danger')
-            return redirect(url_for('home'))
-        else:
-            flash('Allowed file types are CSV.', 'danger')
-    return render_template('upload_csv.html')
+    # Fetch quotes for the current page
+    quotes = conn.execute('SELECT * FROM quotes LIMIT ? OFFSET ?', (per_page, (page - 1) * per_page)).fetchall()
+    conn.close()
 
+    return render_template('all_quotes.html', quotes=quotes, page=page, per_page=per_page, total_pages=total_pages)
+@app.context_processor
+def inject_current_year():
+    return {'current_year': datetime.utcnow().year}
 
 if __name__ == '__main__':
     init_db()

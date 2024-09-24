@@ -1,15 +1,61 @@
+<!-- templates/add_quote.html -->
 {% extends 'base.html' %}
 
 {% block content %}
 <div class="container">
-    <h1 class="my-4">Add a New Quote</h1>
-    <form method="post" action="{{ url_for('add_quote') }}">
-        <div class="form-group">
-            <label for="quote">Quote</label>
-            <textarea class="form-control" id="quote" name="quote" rows="4" required></textarea>
+    <h1 class="my-4 text-center">Add New Quote(s)</h1>
+    <form method="post" id="quoteForm">
+        <div id="quote-fields">
+            <div class="form-group quote-field">
+                <label for="quote1">Quote 1</label>
+                <textarea class="form-control" id="quote1" name="quotes" rows="3" required></textarea>
+            </div>
         </div>
-        <button type="submit" class="btn btn-success">Add Quote</button>
-        <a href="{{ url_for('home') }}" class="btn btn-secondary">Back to Home</a>
+        <div class="text-center">
+            <button type="button" class="btn btn-secondary mb-3" id="addQuoteBtn">Add Another Quote</button>
+        </div>
+        <div class="text-center">
+            <button type="submit" class="btn btn-success btn-lg">Add Quote(s)</button>
+            <a href="{{ url_for('home') }}" class="btn btn-outline-secondary btn-lg">Back to Home</a>
+        </div>
     </form>
 </div>
+
+<!-- Include this script at the end of the file -->
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    let quoteCount = 1;
+    const maxQuotes = 10; // Set a maximum number of quotes if desired
+    const addQuoteBtn = document.getElementById('addQuoteBtn');
+    const quoteFields = document.getElementById('quote-fields');
+
+    addQuoteBtn.addEventListener('click', function() {
+        // Get all current quote textareas
+        const currentQuotes = document.querySelectorAll('.quote-field textarea');
+
+        // Check if any of the existing fields are empty
+        for (let i = 0; i < currentQuotes.length; i++) {
+            if (currentQuotes[i].value.trim() === '') {
+                alert('Please fill out all existing quote fields before adding a new one.');
+                return;
+            }
+        }
+
+        // Limit the number of quotes that can be added
+        if (quoteCount >= maxQuotes) {
+            alert('You have reached the maximum number of quotes.');
+            return;
+        }
+
+        quoteCount++;
+        const newQuoteDiv = document.createElement('div');
+        newQuoteDiv.classList.add('form-group', 'quote-field');
+        newQuoteDiv.innerHTML = `
+            <label for="quote${quoteCount}">Quote ${quoteCount}</label>
+            <textarea class="form-control" id="quote${quoteCount}" name="quotes" rows="3" required></textarea>
+        `;
+        quoteFields.appendChild(newQuoteDiv);
+    });
+});
+</script>
 {% endblock %}
