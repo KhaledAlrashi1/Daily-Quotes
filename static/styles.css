@@ -1,11 +1,29 @@
 /* Body styling with animated background */
 body {
+    background: linear-gradient(to bottom right, #e0f7e0, #a8e6a8);
     margin: 0;
     padding: 0;
-    font-family: 'Montserrat', sans-serif;
+    font-family: 'Roboto', sans-serif;
     color: #333;
     overflow-x: hidden;
+    font-size: 16px;
+    line-height: 1.6;
 }
+
+h1, h2, h3, h4, h5, h6 {
+    font-weight: 700;
+}
+
+/* Heading */
+h1 {
+    /* color: #004d00; */
+    color: #2e8b57; /* SeaGreen */
+    text-shadow: 1px 1px 2px #fff;
+    margin-bottom: 40px;
+    font-size: 2.5em;
+    letter-spacing: 1px;
+}
+
 
 body::before {
     content: '';
@@ -28,22 +46,27 @@ body::before {
 
 /* Container styling */
 .container {
-    margin-top: 20px;
-    margin-bottom: 20px;
+    /* margin-top: 20px;
+    margin-bottom: 20px; */
+    margin-top: 40px;
+    margin-bottom: 40px;
 }
 
 /* Navigation bar */
 .navbar {
-    background-color: rgba(0, 100, 0, 0.8);
+    /* background-color: rgba(0, 100, 0, 0.8); */
+    background-color: #2e8b57;
     width: 100%;
     top: 0;
     z-index: 10;
     padding-top: 0.25rem;
     padding-bottom: 0.25rem;
+    position: relative;
 }
 
 .navbar .navbar-brand {
     font-size: 1.5em; /* Reduce the font size */
+    color: #fff !important;
 }
 .navbar .navbar-brand:hover {
     color: #d4edda !important;
@@ -57,13 +80,6 @@ body::before {
     color: #d4edda !important;
 }
 
-/* Heading */
-h1 {
-    color: #004d00;
-    text-shadow: 1px 1px 2px #fff;
-    margin-bottom: 40px;
-}
-
 /* Quote cards */
 .quote-list {
     max-width: 800px;
@@ -75,6 +91,8 @@ h1 {
     border: none;
     border-radius: 10px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    margin-bottom: 30px;
+    padding: 20px;
 }
 
 .card .card-body {
@@ -83,10 +101,11 @@ h1 {
 }
 
 .card .card-text {
-    font-size: 1.3em;
+    font-size: 1.2em;
     font-style: italic;
     color: #333;
     margin-bottom: 20px;
+    line-height: 1.5;
 }
 
 .card .quote-actions {
@@ -117,51 +136,119 @@ h1 {
     color: #fff;
 }
 
-/* Buttons */
+/* Button styling */
+.btn {
+    border-radius: 30px;
+    font-size: 1em;
+    padding: 0.6em 1.2em;
+    transition: background-color 0.3s, color 0.3s;
+    margin: 5px;
+}
+
+/* Primary button */
 .btn-primary {
-    background-color: #006400;
-    border-color: #006400;
+    background-color: #2e8b57; /* SeaGreen */
+    border-color: #2e8b57;
+    color: #fff;
 }
 
 .btn-primary:hover {
-    background-color: #004d00;
-    border-color: #004d00;
+    background-color: #276749;
+    border-color: #276749;
+    color: #fff;
 }
 
+/* Success button */
 .btn-success {
-    background-color: #228b22;
-    border-color: #228b22;
+    background-color: #3cb371; /* MediumSeaGreen */
+    border-color: #3cb371;
+    color: #fff;
 }
 
 .btn-success:hover {
+    background-color: #2e8b57;
+    border-color: #2e8b57;
+    color: #fff;
+}
+
+/* Info button */
+.btn-info {
+    background-color: #66cdaa; /* MediumAquamarine */
+    border-color: #66cdaa;
+    color: #fff;
+}
+
+.btn-info:hover {
+    background-color: #5cb39b;
+    border-color: #5cb39b;
+    color: #fff;
+}
+
+/* Outline buttons */
+.btn-outline-primary {
+    color: #2e8b57;
+    border-color: #2e8b57;
+}
+
+.btn-outline-primary:hover {
+    background-color: #2e8b57;
+    color: #fff;
+}
+
+.btn-outline-danger {
+    color: #8b0000;
+    border-color: #8b0000;
+}
+
+.btn-outline-danger:hover {
+    background-color: #8b0000;
+    color: #fff;
+}
+
+.btn-outline-secondary {
+    color: #006400;
+    border-color: #006400;
+}
+
+.btn-outline-secondary:hover {
     background-color: #006400;
+    color: #fff;
     border-color: #006400;
 }
 
 /* Form styling */
-.form-group label {
-    color: #004d00;
-    font-weight: bold;
-}
-
 .form-control {
-    border-radius: 5px;
-    border: 1px solid #006400;
+    border-radius: 10px;
+    border: 1px solid #2e8b57;
+    padding: 0.8em;
 }
 
 .form-control:focus {
-    border-color: #228b22;
-    box-shadow: 0 0 5px rgba(34, 139, 34, 0.5);
+    border-color: #3cb371;
+    box-shadow: 0 0 5px rgba(60, 179, 113, 0.5);
+}
+
+.form-group label {
+    color: #2e8b57;
+    font-weight: 700;
+    font-size: 1.1em;
+}
+
+.form-group {
+    margin-bottom: 20px;
 }
 
 /* Footer */
 footer {
-    background-color: rgba(0, 100, 0, 0.8);
+    /* background-color: rgba(0, 100, 0, 0.8); */
+    background-color: #2e8b57;
     color: #fff;
     padding: 10px 0;
     text-align: center;
     width: 100%;
     bottom: 0;
+    position: relative;
+
 }
 
 /* Adjustments for spacing */
@@ -193,17 +280,6 @@ footer {
     border-color: #004d00;
 }
 
-.btn-outline-secondary {
-    color: #006400;
-    border-color: #006400;
-}
-
-.btn-outline-secondary:hover {
-    background-color: #006400;
-    color: #fff;
-    border-color: #006400;
-}
-
 .card:hover {
     transform: translateY(-5px);
     transition: transform 0.2s;
@@ -213,3 +289,21 @@ html {
     scroll-behavior: smooth;
 }
 
+a {
+    color: #2e8b57;
+}
+
+a:hover {
+    color: #276749;
+}
+
+/* Pagination styling */
+.pagination .page-link {
+    color: #2e8b57;
+}
+
+.pagination .page-item.active .page-link {
+    background-color: #2e8b57;
+    border-color: #2e8b57;
+    color: #fff;
+}
