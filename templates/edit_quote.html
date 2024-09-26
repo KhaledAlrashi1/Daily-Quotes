@@ -7,9 +7,27 @@
         <div class="form-group">
             <label for="quote">Quote</label>
             <textarea class="form-control" id="quote" name="quote" rows="4" required>{{ quote['text'] }}</textarea>
+            <small class="form-text text-muted">Edit the quote text as needed.</small>
         </div>
-        <div class="text-center">
-            <button type="submit" class="btn btn-primary btn-lg">Update Quote</button>
+        <div class="form-group">
+            <label for="category">Category</label>
+            <select class="form-control" id="category" name="category" required>
+                <option value="Finance" {% if quote['category'] == 'Finance' %}selected{% endif %}>Finance</option>
+                <option value="Diet" {% if quote['category'] == 'Diet' %}selected{% endif %}>Diet</option>
+                <option value="Exercise" {% if quote['category'] == 'Exercise' %}selected{% endif %}>Exercise</option>
+                <option value="Career" {% if quote['category'] == 'Career' %}selected{% endif %}>Career</option>
+                <option value="Relationships" {% if quote['category'] == 'Relationships' %}selected{% endif %}>Relationships</option>
+                <option value="Charisma" {% if quote['category'] == 'Charisma' %}selected{% endif %}>Charisma</option>
+                <option value="Mastery" {% if quote['category'] == 'Mastery' %}selected{% endif %}>Mastery</option>
+                <option value="Happiness & Fulfilment" {% if quote['category'] == 'Happiness & Fulfilment' %}selected{% endif %}>Happiness & Fulfilment</option>
+                <option value="Character" {% if quote['category'] == 'Character' %}selected{% endif %}>Character</option>
+                <option value="Prayer" {% if quote['category'] == 'Prayer' %}selected{% endif %}>Prayer</option>
+                <option value="Gratitude" {% if quote['category'] == 'Gratitude' %}selected{% endif %}>Gratitude</option>
+            </select>
+            <small class="form-text text-muted">Select the appropriate category.</small>
+        </div>
+        <div class="text-center mt-4">
+            <button type="submit" class="btn btn-success btn-lg mr-2">Update Quote</button>
             <a href="{{ url_for('home') }}" class="btn btn-outline-secondary btn-lg">Back to Home</a>
         </div>
     </form>

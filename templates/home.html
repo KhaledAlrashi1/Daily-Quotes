@@ -2,20 +2,27 @@
 
 {% block content %}
 <div class="container">
-    <h1 class="my-4 text-center">Become better today than you were yesterday</h1>
-    <div class="quote-list">
-        {% for quote in quotes %}
-        <div class="card mb-4">
-            <div class="card-body">
-                <p class="card-text">"{{ quote['text'] }}"</p>
+    <h1 class="my-4 text-center">Quotes of the Day</h1>
+    <div class="owl-carousel owl-theme">
+        {% for quote_group in quotes|batch(3, '') %}
+        <div class="item">
+            {% for quote in quote_group %}
+            {% if quote %}
+            <div class="card border-0 shadow-sm mb-3">
+                <div class="card-body">
+                    <span class="badge badge-success mb-2">{{ quote['category'] }}</span>
+                    <p class="card-text">"{{ quote['text'] }}"</p>
+                </div>
             </div>
+            {% endif %}
+            {% endfor %}
         </div>
         {% endfor %}
     </div>
-    <div class="text-center mt-5">
-        <a href="{{ url_for('refresh_quotes') }}" class="btn btn-primary btn-lg mr-2">Refresh Quotes</a>
-        <a href="{{ url_for('add_quote') }}" class="btn btn-success btn-lg mr-2">Add New Quote(s)</a>
-        <a href="{{ url_for('all_quotes') }}" class="btn btn-info btn-lg mr-2">View All Quotes</a>
-    </div>
+</div>
+<div class="text-center mt-4">
+    <a href="{{ url_for('refresh_quotes') }}" class="btn btn-primary mr-2">Refresh Quotes</a>
+    <a href="{{ url_for('add_quote') }}" class="btn btn-success">Add New Quote(s)</a>
+    <a href="{{ url_for('all_quotes') }}" class="btn btn-info">View All Quotes</a>
 </div>
 {% endblock %}

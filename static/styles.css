@@ -1,29 +1,43 @@
 /* Body styling with animated background */
 body {
-    background: linear-gradient(to bottom right, #e0f7e0, #a8e6a8);
     margin: 0;
     padding: 0;
-    font-family: 'Roboto', sans-serif;
+    font-family: 'Montserrat', sans-serif;
     color: #333;
     overflow-x: hidden;
     font-size: 16px;
     line-height: 1.6;
+    background: #f7f7f7;
+    transition: all 0.3s ease;
+}
+
+/* Enhanced gradient background for the hero section */
+.hero-section {
+    background: linear-gradient(135deg, #88cc88, #77bb77, #99dd99);
+    padding: 80px 0;
+    background-size: 200% 200%;
+    animation: gradientAnimation 8s ease infinite;
+    text-align: center;
+    color: #fff;
+}
+
+@keyframes gradientAnimation {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
 }
 
 h1, h2, h3, h4, h5, h6 {
+    font-family: 'Playfair Display', serif;
     font-weight: 700;
+    color: #004d00;
 }
 
-/* Heading */
 h1 {
-    /* color: #004d00; */
-    color: #2e8b57; /* SeaGreen */
-    text-shadow: 1px 1px 2px #fff;
-    margin-bottom: 40px;
-    font-size: 2.5em;
-    letter-spacing: 1px;
+    font-size: 3em;
+    margin-bottom: 30px;
+    text-shadow: 1px 1px 4px rgba(255, 255, 255, 0.5);
 }
-
 
 body::before {
     content: '';
@@ -34,101 +48,111 @@ body::before {
     height: 100%;
     background: linear-gradient(-45deg, #e0f7e0, #a8e6a8, #d0ffd0, #b0f4b0);
     background-size: 400% 400%;
-    animation: gradientAnimation 15s ease infinite;
+    animation: gradientAnimation 20s ease infinite;
     z-index: -1;
-}
-
-@keyframes gradientAnimation {
-    0% { background-position: 0% 50%; }
-    50% { background-position: 100% 50%; }
-    100% { background-position: 0% 50%; }
+    opacity: 0.5;
 }
 
 /* Container styling */
 .container {
-    /* margin-top: 20px;
-    margin-bottom: 20px; */
-    margin-top: 40px;
-    margin-bottom: 40px;
+    margin: 30px auto;
+    max-width: 1200px;
+    padding: 0 15px;
 }
 
-/* Navigation bar */
+/* Improved Navigation bar */
 .navbar {
-    /* background-color: rgba(0, 100, 0, 0.8); */
-    background-color: #2e8b57;
-    width: 100%;
+    padding: 5px 0; /* Reduce the top and bottom padding */
+    height: 100px; /* Adjust the height as needed */
+    background: rgba(34, 34, 34, 0.9);
+    transition: background 0.3s;
+    position: sticky;
     top: 0;
-    z-index: 10;
-    padding-top: 0.25rem;
-    padding-bottom: 0.25rem;
-    position: relative;
+    z-index: 1000;
+    width: 100%;
 }
 
-.navbar .navbar-brand {
-    font-size: 1.5em; /* Reduce the font size */
-    color: #fff !important;
-}
-.navbar .navbar-brand:hover {
-    color: #d4edda !important;
+.navbar.scrolled {
+    background: rgba(34, 34, 34, 0.95);
 }
 
-.navbar .nav-link {
-    color: #ffffff !important;
+.navbar-brand, .navbar-nav .nav-link {
+    color: #fff;
+    font-weight: 500;
+    transition: color 0.3s;
 }
 
-.navbar .nav-link:hover {
-    color: #d4edda !important;
+.navbar-brand:hover, .navbar-nav .nav-link:hover {
+    color: #b0f4b0;
 }
 
-/* Quote cards */
-.quote-list {
-    max-width: 800px;
-    margin: 0 auto;
-}
-
+/* Enhanced Quote cards */
 .card {
-    background-color: rgba(255, 255, 255, 0.9);
-    border: none;
-    border-radius: 10px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    margin-bottom: 30px;
-    padding: 20px;
+    background-color: rgba(255, 255, 255, 0.95);
+    border: 3px;
+    border-radius: 15px;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    height: 100%; /* Ensure consistent card height */
+    justify-content: space-between;
 }
 
-.card .card-body {
-    position: relative;
-    padding: 20px;
+.card:hover {
+    transform: translateY(-5px) scale(1.02);
+    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.2);
+    
+}
+
+.card .card-title {
+    color: #2e8b57;
+    font-size: 1.3em;
+    margin-bottom: 10px;
 }
 
 .card .card-text {
-    font-size: 1.2em;
-    font-style: italic;
+    font-size: 1.35rem; /* Adjust the font size as needed */
     color: #333;
-    margin-bottom: 20px;
-    line-height: 1.5;
+    line-height: 1.6;
 }
 
-.card .quote-actions {
-    /* position: absolute; */
-    /* top: 20px; */
-    /* right: 20px; */
-    margin-top: 10px;
+.card-body {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 100%;
 }
 
+/* the category name */
+.card .badge {
+    font-size: 1.4rem; /* Adjust the font size for the category */
+    padding: 5px 10px; /* Adjust padding if needed */
+    background-color: #2e8b57; /* Maintain background color */
+    color: #fff; /* Ensure text is readable */
+    border-radius: 10px; /* Adjust border radius */
+    display: inline-block;
+    text-align: left;
+}
+
+/* Card Actions */
 .card .btn-outline-primary {
-    color: #006400;
-    border-color: #006400;
+    color: #2e8b57;
+    border-color: #2e8b57;
     margin-right: 5px;
+    transition: background-color 0.3s, color 0.3s;
 }
 
 .card .btn-outline-primary:hover {
-    background-color: #006400;
+    background-color: #2e8b57;
     color: #fff;
 }
 
 .card .btn-outline-danger {
     color: #8b0000;
     border-color: #8b0000;
+    transition: background-color 0.3s, color 0.3s;
 }
 
 .card .btn-outline-danger:hover {
@@ -136,161 +160,56 @@ body::before {
     color: #fff;
 }
 
-/* Button styling */
+/* Improved Button styling */
 .btn {
-    border-radius: 30px;
-    font-size: 1em;
-    padding: 0.6em 1.2em;
-    transition: background-color 0.3s, color 0.3s;
-    margin: 5px;
+    border-radius: 25px;
+    padding: 10px 20px;
+    transition: background-color 0.3s, transform 0.3s;
 }
 
-/* Primary button */
 .btn-primary {
-    background-color: #2e8b57; /* SeaGreen */
-    border-color: #2e8b57;
+    background: linear-gradient(135deg, #2e8b57, #3cb371);
+    border: none;
     color: #fff;
 }
 
 .btn-primary:hover {
-    background-color: #276749;
-    border-color: #276749;
-    color: #fff;
+    transform: translateY(-2px);
+    background: linear-gradient(135deg, #3cb371, #2e8b57);
 }
 
-/* Success button */
-.btn-success {
-    background-color: #3cb371; /* MediumSeaGreen */
-    border-color: #3cb371;
-    color: #fff;
-}
-
-.btn-success:hover {
-    background-color: #2e8b57;
-    border-color: #2e8b57;
-    color: #fff;
-}
-
-/* Info button */
-.btn-info {
-    background-color: #66cdaa; /* MediumAquamarine */
-    border-color: #66cdaa;
-    color: #fff;
-}
-
-.btn-info:hover {
-    background-color: #5cb39b;
-    border-color: #5cb39b;
-    color: #fff;
-}
-
-/* Outline buttons */
-.btn-outline-primary {
-    color: #2e8b57;
-    border-color: #2e8b57;
-}
-
-.btn-outline-primary:hover {
-    background-color: #2e8b57;
-    color: #fff;
-}
-
-.btn-outline-danger {
-    color: #8b0000;
-    border-color: #8b0000;
-}
-
-.btn-outline-danger:hover {
-    background-color: #8b0000;
-    color: #fff;
-}
-
-.btn-outline-secondary {
-    color: #006400;
-    border-color: #006400;
-}
-
-.btn-outline-secondary:hover {
-    background-color: #006400;
-    color: #fff;
-    border-color: #006400;
-}
-
-/* Form styling */
+/* Form Controls */
 .form-control {
-    border-radius: 10px;
+    border-radius: 8px;
+    padding: 10px;
     border: 1px solid #2e8b57;
-    padding: 0.8em;
 }
 
 .form-control:focus {
-    border-color: #3cb371;
-    box-shadow: 0 0 5px rgba(60, 179, 113, 0.5);
+    border-color: #66cdaa;
+    box-shadow: 0 0 5px rgba(102, 205, 170, 0.5);
 }
 
 .form-group label {
     color: #2e8b57;
-    font-weight: 700;
     font-size: 1.1em;
 }
 
-.form-group {
-    margin-bottom: 20px;
-}
-
-/* Footer */
+/* Enhanced footer styling */
 footer {
-    /* background-color: rgba(0, 100, 0, 0.8); */
-    background-color: #2e8b57;
+    background: #222;
     color: #fff;
-    padding: 10px 0;
+    padding: 0px 0;
     text-align: center;
-    width: 100%;
-    bottom: 0;
     position: relative;
-
+    margin-top: 20px;
 }
 
-/* Adjustments for spacing */
-.mb-3, .my-4 {
-    margin-bottom: 1.5rem !important;
-}
-
-.mt-4 {
-    margin-top: 1.5rem !important;
-}
-
-/* Adjustments for mobile */
-@media (max-width: 576px) {
-    .card .quote-actions {
-        position: static;
-        margin-top: 10px;
-    }
-}
-
-/* Form buttons */
-#addQuoteBtn {
-    background-color: #006400;
-    border-color: #006400;
-    color: #fff;
-}
-
-#addQuoteBtn:hover {
-    background-color: #004d00;
-    border-color: #004d00;
-}
-
-.card:hover {
-    transform: translateY(-5px);
-    transition: transform 0.2s;
-}
-
-html {
-    scroll-behavior: smooth;
-}
-
+/* Links */
 a {
     color: #2e8b57;
+    text-decoration: none;
+    transition: color 0.3s;
 }
 
 a:hover {
@@ -300,10 +219,66 @@ a:hover {
 /* Pagination styling */
 .pagination .page-link {
     color: #2e8b57;
+    transition: background-color 0.3s, color 0.3s;
 }
 
 .pagination .page-item.active .page-link {
     background-color: #2e8b57;
-    border-color: #2e8b57;
     color: #fff;
+    border: none;
+}
+
+/* Ensure all cards have the same height */
+.owl-carousel .item {
+    display: flex;
+    flex-direction: column; /* Stack quotes vertically */
+    align-items: stretch;
+    justify-content: flex-start;
+    height: 100%; /* Ensure consistent height */
+    padding: 10px;
+    gap: 10px; /* Adjust the space between quotes */
+
+}
+
+/* Ensure arrow size changes take effect */
+.owl-carousel .owl-nav button.owl-prev, 
+.owl-carousel .owl-nav button.owl-next {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 2rem !important; /* Increase size and use !important to ensure the change */
+    color: #2e8b57; /* Adjust arrow color */
+    background: rgba(255, 255, 255, 0.8); /* Light background for better visibility */
+    border-radius: 50%;
+    padding: 15px; /* Adjust padding */
+    cursor: pointer;
+    transition: transform 0.3s;
+    z-index: 1000;
+    border: none; /* Remove border if any */
+}
+
+.owl-carousel .owl-nav button.owl-prev {
+    left: -85px; /* Adjust the position further left */
+}
+
+.owl-carousel .owl-nav button.owl-next {
+    right: -85px; /* Adjust the position further right */
+}
+
+.owl-carousel .owl-nav button.owl-prev:hover, 
+.owl-carousel .owl-nav button.owl-next:hover {
+    transform: translateY(-50%) scale(1.3); /* Slight zoom effect on hover */
+}
+
+/* Adjustments for mobile */
+@media (max-width: 576px) {
+    .navbar .navbar-brand {
+        font-size: 1.3em;
+    }
+    .card .card-title {
+        font-size: 1.1em;
+    }
+    .card .card-text {
+        font-size: 0.9em;
+    }
 }

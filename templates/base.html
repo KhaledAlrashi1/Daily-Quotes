@@ -2,30 +2,54 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Personal Development</title>
-    <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-    <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
-    <!-- Custom CSS -->
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
-    <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
-    
     <link rel="icon" href="{{ url_for('static', filename='favicon.ico') }}" type="image/x-icon">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.theme.default.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
 </head>
 <body>
-    <nav class="navbar navbar-expand-lg navbar-dark">
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-dark fixed-top">
         <div class="container">
             <a class="navbar-brand" href="{{ url_for('home') }}">Personal Development</a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
                 aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
-            <!-- Add any additional navigation items here -->
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item {% if request.endpoint == 'home' %}active{% endif %}">
+                        <a class="nav-link" href="{{ url_for('home') }}">Home</a>
+                    </li>
+                    <li class="nav-item {% if request.endpoint == 'add_quote' %}active{% endif %}">
+                        <a class="nav-link" href="{{ url_for('add_quote') }}">Add Quote(s)</a>
+                    </li>
+                    <li class="nav-item {% if request.endpoint == 'all_quotes' %}active{% endif %}">
+                        <a class="nav-link" href="{{ url_for('all_quotes') }}">All Quotes</a>
+                    </li>
+                </ul>
+            </div>
         </div>
     </nav>
-    <div class="container">
+
+    <!-- Hero Section -->
+    <header class="hero-section">
+        <div class="container text-center text-white">
+            <h1 class="display-4 animate__animated animate__fadeInDown">Inspire Yourself Daily</h1>
+            <p class="lead animate__animated animate__fadeInUp">Curated quotes for personal growth and development.</p>
+            <a href="{{ url_for('add_quote') }}" class="btn btn-primary btn-lg mt-4 mr-2">Add Your Own Quotes</a>
+            <a href="{{ url_for('all_quotes') }}" class="btn btn-outline-light btn-lg mt-4">Explore All Quotes</a>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <div class="container main-content">
         {% with messages = get_flashed_messages(with_categories=true) %}
         {% if messages %}
         {% for category, message in messages %}
@@ -37,14 +61,38 @@
         {% endwith %}
         {% block content %}{% endblock %}
     </div>
-    <footer>
-        <div class="container">
+
+    <!-- Footer -->
+    <footer class="bg-dark text-white mt-5">
+        <div class="container py-4 text-center">
             <p>&copy; {{ current_year }} Personal Development. All rights reserved.</p>
+            <div class="footer-links">
+                <a href="{{ url_for('home') }}" class="text-white">Home</a> |
+                <a href="{{ url_for('add_quote') }}" class="text-white">Add Quote(s)</a> |
+                <a href="{{ url_for('all_quotes') }}" class="text-white">All Quotes</a>
+            </div>
         </div>
     </footer>
-    <!-- Bootstrap JS and dependencies -->
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js"></script>
+    <script>
+        $(document).ready(function(){
+            $('.owl-carousel').owlCarousel({
+                loop: true,
+                margin: 15,
+                nav: true, // Navigation arrows remain enabled
+                navText: ['<i class="fas fa-chevron-left"></i>', '<i class="fas fa-chevron-right"></i>'],
+                responsive: {
+                    0: { items: 1 },   // Display 1 item on small screens
+                    600: { items: 1 }, // Keep 1 item per screen; each 'item' will have multiple quotes
+                    1000: { items: 1 } // Maintain 1 item with 3 stacked quotes vertically
+                }
+            });
+        });
+    </script>
 </body>
 </html>

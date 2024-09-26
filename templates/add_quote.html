@@ -8,11 +8,31 @@
             <div class="form-group quote-field">
                 <label for="quote1">Quote 1</label>
                 <textarea class="form-control" id="quote1" name="quotes" rows="3" required></textarea>
+                <small class="form-text text-muted">Enter a new quote.</small>
+                
+                <label for="category1" class="mt-2">Category</label>
+                <select class="form-control" id="category1" name="categories" required>
+                    <option value="" disabled selected>Select a category</option>
+                    <option value="Finance">Finance</option>
+                    <option value="Diet">Diet</option>
+                    <option value="Exercise">Exercise</option>
+                    <option value="Career">Career</option>
+                    <option value="Relationships">Relationships</option>
+                    <option value="Charisma">Charisma</option>
+                    <option value="Mastery">Mastery</option>
+                    <option value="Happiness & Fulfilment">Happiness & Fulfilment</option>
+                    <option value="Character">Character</option>
+                    <option value="Prayer">Prayer</option>
+                    <option value="Gratitude">Gratitude</option>
+                </select>
+                <small class="form-text text-muted">Select the appropriate category for the quote.</small>
             </div>
         </div>
-        <div class="text-center">
+        
+        <div class="text-center mt-3">
             <button type="button" class="btn btn-secondary mb-3" id="addQuoteBtn">Add Another Quote</button>
         </div>
+        
         <div class="text-center">
             <button type="submit" class="btn btn-success btn-lg">Add Quote(s)</button>
             <a href="{{ url_for('home') }}" class="btn btn-outline-secondary btn-lg">Back to Home</a>
@@ -20,22 +40,22 @@
     </form>
 </div>
 
-<!-- Include this script at the end of the file -->
+<!-- JavaScript to handle adding more quote fields -->
 <script>
 document.addEventListener('DOMContentLoaded', function() {
     let quoteCount = 1;
-    const maxQuotes = 10; // Set a maximum number of quotes if desired
+    const maxQuotes = 10;
     const addQuoteBtn = document.getElementById('addQuoteBtn');
     const quoteFields = document.getElementById('quote-fields');
 
     addQuoteBtn.addEventListener('click', function() {
-        // Get all current quote textareas
         const currentQuotes = document.querySelectorAll('.quote-field textarea');
+        const currentCategories = document.querySelectorAll('.quote-field select');
 
-        // Check if any of the existing fields are empty
+        // Check if any existing fields are empty
         for (let i = 0; i < currentQuotes.length; i++) {
-            if (currentQuotes[i].value.trim() === '') {
-                alert('Please fill out all existing quote fields before adding a new one.');
+            if (currentQuotes[i].value.trim() === '' || currentCategories[i].value === '') {
+                alert('Please fill out all existing quote fields and select categories before adding a new one.');
                 return;
             }
         }
@@ -48,10 +68,28 @@ document.addEventListener('DOMContentLoaded', function() {
 
         quoteCount++;
         const newQuoteDiv = document.createElement('div');
-        newQuoteDiv.classList.add('form-group', 'quote-field');
+        newQuoteDiv.classList.add('form-group', 'quote-field', 'mt-3');
         newQuoteDiv.innerHTML = `
             <label for="quote${quoteCount}">Quote ${quoteCount}</label>
             <textarea class="form-control" id="quote${quoteCount}" name="quotes" rows="3" required></textarea>
+            <small class="form-text text-muted">Enter a new quote.</small>
+            
+            <label for="category${quoteCount}" class="mt-2">Category</label>
+            <select class="form-control" id="category${quoteCount}" name="categories" required>
+                <option value="" disabled selected>Select a category</option>
+                <option value="Finance">Finance</option>
+                <option value="Diet">Diet</option>
+                <option value="Exercise">Exercise</option>
+                <option value="Career">Career</option>
+                <option value="Relationships">Relationships</option>
+                <option value="Charisma">Charisma</option>
+                <option value="Mastery">Mastery</option>
+                <option value="Happiness & Fulfilment">Happiness & Fulfilment</option>
+                <option value="Character">Character</option>
+                <option value="Prayer">Prayer</option>
+                <option value="Gratitude">Gratitude</option>
+            </select>
+            <small class="form-text text-muted">Select the appropriate category for the quote.</small>
         `;
         quoteFields.appendChild(newQuoteDiv);
     });

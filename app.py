@@ -19,25 +19,32 @@ def get_db_connection():
 
 def init_db():
     conn = get_db_connection()
-    # # Drop existing tables (optional)
-    # conn.execute('DROP TABLE IF EXISTS quotes')
+    # Create the quotes table with a 'category' column
     conn.execute('''
         CREATE TABLE IF NOT EXISTS quotes (
             id INTEGER PRIMARY KEY AUTOINCREMENT,
-            text TEXT NOT NULL
+            text TEXT NOT NULL,
+            category TEXT NOT NULL
         )
     ''')
+
     # Insert initial quotes if the table is empty
     quotes_exist = conn.execute('SELECT COUNT(*) FROM quotes').fetchone()[0]
     if not quotes_exist:
         initial_quotes = [
-            "The best way to predict the future is to invent it.",
-            "Life is 10% what happens to us and 90% how we react to it.",
-            "An unexamined life is not worth living.",
-            "Eighty percent of success is showing up.",
-            "Your time is limited, so don't waste it living someone else's life."
+            ("The best way to predict the future is to invent it.", "Career"),
+            ("Life is 10% what happens to us and 90% how we react to it.", "Mastery"),
+            ("An unexamined life is not worth living.", "Charisma"),
+            ("Eighty percent of success is showing up.", "Career"),
+            ("Your time is limited, so don't waste it living someone else's life.", "Mastery"),
+            ("Invest in yourself. Your career is the engine of your wealth.", "Finance"),
+            ("Health is the greatest gift, contentment the greatest wealth, faithfulness the best relationship.", "Diet"),
+            ("Happiness depends upon ourselves.", "Happiness & Fulfilment"),
+            ("Character is how you treat those who can do nothing for you.", "Character"),
+            ("Prayer is the key of the morning and the bolt of the evening.", "Prayer"),
+            ("Gratitude turns what we have into enough.", "Gratitude")
         ]
-        conn.executemany('INSERT INTO quotes (text) VALUES (?)', [(q,) for q in initial_quotes])
+        conn.executemany('INSERT INTO quotes (text, category) VALUES (?, ?)', initial_quotes)
     conn.commit()
     conn.close()
 
@@ -45,13 +52,20 @@ def init_db():
 @app.route('/')
 def home():
     conn = get_db_connection()
-    quotes = conn.execute('SELECT * FROM quotes').fetchall()
+    categories = [
+        "Finance", "Diet", "Exercise", "Career", "Relationships", "Charisma", "Mastery",
+        "Happiness & Fulfilment", "Character", "Prayer", "Gratitude"
+    ]
+    quotes = []
+    for category in categories:
+        quote = conn.execute(
+            'SELECT * FROM quotes WHERE category = ? ORDER BY RANDOM() LIMIT 1',
+            (category,)
+        ).fetchone()
+        if quote:
+            quotes.append(quote)
     conn.close()
-    if len(quotes) < 3:
-        displayed_quotes = quotes
-    else:
-        displayed_quotes = random.sample(quotes, 3)
-    return render_template('home.html', quotes=displayed_quotes)
+    return render_template('home.html', quotes=quotes)
 
 # Route to refresh quotes
 @app.route('/refresh')
@@ -61,19 +75,23 @@ def refresh_quotes():
 @app.route('/add', methods=('GET', 'POST'))
 def add_quote():
     if request.method == 'POST':
-        # Retrieve all quote inputs from the form
+        # Retrieve all quote inputs and categories from the form
         quotes_list = request.form.getlist('quotes')
+        categories_list = request.form.getlist('categories')
         # Remove any empty strings and strip whitespace
         quotes_list = [quote.strip() for quote in quotes_list if quote.strip()]
-        if quotes_list:
+        categories_list = [category.strip() for category in categories_list if category.strip()]
+        if quotes_list and categories_list and len(quotes_list) == len(categories_list):
             conn = get_db_connection()
-            conn.executemany('INSERT INTO quotes (text) VALUES (?)', [(quote,) for quote in quotes_list])
+            # Prepare data for insertion
+            data = [(quote, category) for quote, category in zip(quotes_list, categories_list)]
+            conn.executemany('INSERT INTO quotes (text, category) VALUES (?, ?)', data)
             conn.commit()
             conn.close()
             flash(f'{len(quotes_list)} quote(s) added successfully!', 'success')
             return redirect(url_for('home'))
         else:
-            flash('Please enter at least one quote.', 'danger')
+            flash('Please enter at least one quote and select a category.', 'danger')
     return render_template('add_quote.html')
 
 @app.route('/edit/<int:id>', methods=('GET', 'POST'))
@@ -86,12 +104,15 @@ def edit_quote(id):
         return redirect(url_for('home'))
     if request.method == 'POST':
         quote_text = request.form['quote']
-        if quote_text:
-            conn.execute('UPDATE quotes SET text = ? WHERE id = ?', (quote_text, id))
+        category = request.form['category']
+        if quote_text and category:
+            conn.execute('UPDATE quotes SET text = ?, category = ? WHERE id = ?', (quote_text, category, id))
             conn.commit()
             conn.close()
             flash('Quote updated successfully!', 'success')
-            return redirect(url_for('home'))
+            return redirect(url_for('all_quotes'))
+        else:
+            flash('Please enter the quote and select a category.', 'danger')
     conn.close()
     return render_template('edit_quote.html', quote=quote)
 
