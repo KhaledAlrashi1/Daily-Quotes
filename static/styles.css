@@ -63,7 +63,7 @@ body::before {
 /* Improved Navigation bar */
 .navbar {
     padding: 5px 0; /* Reduce the top and bottom padding */
-    height: 100px; /* Adjust the height as needed */
+    height: 60px; /* Adjust the height as needed */
     background: rgba(34, 34, 34, 0.9);
     transition: background 0.3s;
     position: sticky;

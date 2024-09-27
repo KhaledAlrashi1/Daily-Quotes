@@ -12,17 +12,16 @@
         <div class="form-group">
             <label for="category">Category</label>
             <select class="form-control" id="category" name="category" required>
-                <option value="Finance" {% if quote['category'] == 'Finance' %}selected{% endif %}>Finance</option>
-                <option value="Diet" {% if quote['category'] == 'Diet' %}selected{% endif %}>Diet</option>
-                <option value="Exercise" {% if quote['category'] == 'Exercise' %}selected{% endif %}>Exercise</option>
-                <option value="Career" {% if quote['category'] == 'Career' %}selected{% endif %}>Career</option>
+                <option value="Health" {% if quote['category'] == 'Health' %}selected{% endif %}>Health</option>
+                <option value="Professional Growth" {% if quote['category'] == 'Professional Growth' %}selected{% endif %}>Professional Growth</option>
                 <option value="Relationships" {% if quote['category'] == 'Relationships' %}selected{% endif %}>Relationships</option>
-                <option value="Charisma" {% if quote['category'] == 'Charisma' %}selected{% endif %}>Charisma</option>
-                <option value="Mastery" {% if quote['category'] == 'Mastery' %}selected{% endif %}>Mastery</option>
-                <option value="Happiness & Fulfilment" {% if quote['category'] == 'Happiness & Fulfilment' %}selected{% endif %}>Happiness & Fulfilment</option>
-                <option value="Character" {% if quote['category'] == 'Character' %}selected{% endif %}>Character</option>
-                <option value="Prayer" {% if quote['category'] == 'Prayer' %}selected{% endif %}>Prayer</option>
-                <option value="Gratitude" {% if quote['category'] == 'Gratitude' %}selected{% endif %}>Gratitude</option>
+                <option value="Well-being" {% if quote['category'] == 'Well-being' %}selected{% endif %}>Well-being</option>
+                <option value="Personal Development" {% if quote['category'] == 'Personal Development' %}selected{% endif %}>Personal Development</option>
+                <option value="Spirituality" {% if quote['category'] == 'Spirituality' %}selected{% endif %}>Spirituality</option>
+                <option value="Resilience" {% if quote['category'] == 'Resilience' %}selected{% endif %}>Resilience</option>
+                <option value="Creativity" {% if quote['category'] == 'Creativity' %}selected{% endif %}>Creativity</option>
+                <option value="Productivity" {% if quote['category'] == 'Productivity' %}selected{% endif %}>Productivity</option>
+
             </select>
             <small class="form-text text-muted">Select the appropriate category.</small>
         </div>

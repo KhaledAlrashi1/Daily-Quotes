@@ -27,24 +27,6 @@ def init_db():
             category TEXT NOT NULL
         )
     ''')
-
-    # Insert initial quotes if the table is empty
-    quotes_exist = conn.execute('SELECT COUNT(*) FROM quotes').fetchone()[0]
-    if not quotes_exist:
-        initial_quotes = [
-            ("The best way to predict the future is to invent it.", "Career"),
-            ("Life is 10% what happens to us and 90% how we react to it.", "Mastery"),
-            ("An unexamined life is not worth living.", "Charisma"),
-            ("Eighty percent of success is showing up.", "Career"),
-            ("Your time is limited, so don't waste it living someone else's life.", "Mastery"),
-            ("Invest in yourself. Your career is the engine of your wealth.", "Finance"),
-            ("Health is the greatest gift, contentment the greatest wealth, faithfulness the best relationship.", "Diet"),
-            ("Happiness depends upon ourselves.", "Happiness & Fulfilment"),
-            ("Character is how you treat those who can do nothing for you.", "Character"),
-            ("Prayer is the key of the morning and the bolt of the evening.", "Prayer"),
-            ("Gratitude turns what we have into enough.", "Gratitude")
-        ]
-        conn.executemany('INSERT INTO quotes (text, category) VALUES (?, ?)', initial_quotes)
     conn.commit()
     conn.close()
 
@@ -53,9 +35,21 @@ def init_db():
 def home():
     conn = get_db_connection()
     categories = [
-        "Finance", "Diet", "Exercise", "Career", "Relationships", "Charisma", "Mastery",
-        "Happiness & Fulfilment", "Character", "Prayer", "Gratitude"
+        "Spirituality", "Well-being", "Health",
+        "Personal Development", "Professional Growth", "Relationships",
+        "Resilience", "Creativity", "Productivity",
     ]
+
+	# 1. Health:                    Diet, Exercise, and Physical Well-being
+	# 2. Spirituality:              Prayer, Gratitude, Meditation, and Mindfulness
+	# 3. Personal Development:      Character, Charisma, Mastery, and Self-improvement
+	# 4. Professional Growth:       Career, Finance, Entrepreneurship, and Leadership
+	# 5. Relationships:             Love & Relationships, Communication Skills, and Networking
+	# 6. Well-being:                Happiness & Fulfilment, Mental Health, and Emotional Well-being
+	# 7. Productivity:              Time Management, Goal Setting, and Focus Techniques
+	# 8. Creativity:                Innovation, Problem-solving, and Creative Thinking
+	# 9. Resilience:                Overcoming Adversity, Coping Strategies, and Stress Management
+
     quotes = []
     for category in categories:
         quote = conn.execute(
