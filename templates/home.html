@@ -3,26 +3,42 @@
 {% block content %}
 <div class="container">
     <h1 class="my-4 text-center">Quotes of the Day</h1>
-    <div class="owl-carousel owl-theme">
-        {% for quote_group in quotes|batch(4, '') %}
-        <div class="item">
-            {% for quote in quote_group %}
-            {% if quote %}
-            <div class="card border-0 shadow-sm mb-3">
-                <div class="card-body">
-                    <span class="badge badge-success mb-2">{{ quote['category'] }}</span>
-                    <p class="card-text">"{{ quote['text'] }}"</p>
-                </div>
+    <div id="quotes-container">
+        {% for quote in quotes %}
+        <div class="card border-0 shadow-sm mb-3">
+            <div class="card-body">
+                <span class="badge mb-2 category-badge" style="background-color: {{ shades_of_green[loop.index0 % shades_of_green|length] }};">
+                    {{ quote['category'] }}
+                </span>
+                <p id="quote-text-{{ loop.index0 }}" class="card-text quote-text" data-text="{{ quote['text'] }}"></p>
             </div>
-            {% endif %}
-            {% endfor %}
         </div>
         {% endfor %}
     </div>
 </div>
 <div class="text-center mt-4">
-    <!-- <a href="{{ url_for('refresh_quotes') }}" class="btn btn-primary mr-2">Refresh Quotes</a> -->
     <a href="{{ url_for('add_quote') }}" class="btn btn-success">Add New Quote(s)</a>
     <a href="{{ url_for('all_quotes') }}" class="btn btn-info">View All Quotes</a>
 </div>
+
+<!-- Include the script to handle the typing effect -->
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const quotes = document.querySelectorAll('.quote-text');
+
+        quotes.forEach((quoteElement, index) => {
+            const fullText = quoteElement.getAttribute('data-text');
+            let i = 0;
+
+            function typeWriter() {
+                if (i < fullText.length) {
+                    quoteElement.innerHTML += fullText.charAt(i);
+                    i++;
+                    setTimeout(typeWriter, 30); // Adjust typing speed here
+                }
+            }
+            typeWriter();
+        });
+    });
+</script>
 {% endblock %}

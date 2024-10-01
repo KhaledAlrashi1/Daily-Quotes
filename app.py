@@ -40,38 +40,30 @@ def home():
         "Character", "Charisma", "Leadership", "Mastery", "Resilience",
         "Career", "Finance", "Networking", "Communication", "Productivity",
     ]
+    
+    # "Creativity": Innovation, Problem-solving, and Creative Thinking
+    # "Resilience": Overcoming Adversity, Coping Strategies, and Stress Management
+    # "Productivity": Time Management, Goal Setting, and Focus Techniques
 
-    # 1. "Prayer"
-    # 2. "Gratitude"
-    # 3. "Happiness & Fulfilment"
-    # 4. "Wisdom"
-    # 5. "Human Gifts"
-    # 6. "Love & Relationships"
-    # 7. "Mental Health"
-    # 8. "Diet"
-    # 9. "Exercise"
-    # 10. "Creativity": Innovation, Problem-solving, and Creative Thinking
-    # 11. "Character"
-    # 12. "Charisma"
-    # 13. "Leadership"
-    # 14. "Mastery"
-    # 15. "Resilience": Overcoming Adversity, Coping Strategies, and Stress Management
-    # 16. "Career"
-    # 17. "Finance"
-    # 18. "Networking"
-    # 19. "Communication"
-    # 20. "Productivity": Time Management, Goal Setting, and Focus Techniques
-
-    quotes = []
+    quotes_data = []
     for category in categories:
         quote = conn.execute(
             'SELECT * FROM quotes WHERE category = ? ORDER BY RANDOM() LIMIT 1',
             (category,)
         ).fetchone()
         if quote:
-            quotes.append(quote)
+            quotes_data.append({'text': quote['text'], 'category': quote['category']})
     conn.close()
-    return render_template('home.html', quotes=quotes)
+
+    shades_of_green = [
+        "#66bb6a",  # Medium green
+        "#4caf50",  # Slightly darker green
+        "#388e3c",  # Dark green
+        "#2e7d32",  # Darker green
+        "#1b5e20",  # Very dark green
+    ]
+
+    return render_template('home.html', quotes=quotes_data, shades_of_green=shades_of_green)
 
 # Route to refresh quotes
 @app.route('/refresh')
