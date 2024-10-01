@@ -1,40 +1,67 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<div class="container">
+<div class="container all-quotes">
     <h1 class="my-4 text-center">All Quotes</h1>
-    <div class="text-right mb-3">
-        <form method="get" action="{{ url_for('all_quotes') }}">
-            <label for="per_page">Quotes per page:</label>
-            <select class="custom-select w-auto" name="per_page" id="per_page" onchange="this.form.submit()">
-                <option value="10" {% if per_page == 10 %}selected{% endif %}>10</option>
-                <option value="20" {% if per_page == 20 %}selected{% endif %}>20</option>
-                <option value="50" {% if per_page == 50 %}selected{% endif %}>50</option>
-            </select>
-        </form>
+    <div class="text-center my-3 mb-5">
+        <div class="dropdown">
+            <button id="toggleCountsBtn" class="btn btn-secondary dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                Show Quote Counts
+            </button>
+            <div id="quoteCounts" class="dropdown-menu" aria-labelledby="toggleCountsBtn">
+                <!-- Counts will be inserted here -->
+            </div>
+        </div>
     </div>
-    <div class="quote-list">
+    <div class="row mb-3">
+        <div class="col-md-6">
+            <form method="get" action="{{ url_for('all_quotes') }}" class="form-inline">
+                <label for="per_page" class="mr-2">Quotes per page:</label>
+                <select name="per_page" id="per_page" class="form-control mr-2" onchange="this.form.submit()">
+                    <option value="10" {% if per_page == 10 %}selected{% endif %}>10</option>
+                    <option value="20" {% if per_page == 20 %}selected{% endif %}>20</option>
+                    <option value="50" {% if per_page == 50 %}selected{% endif %}>50</option>
+                </select>
+                <noscript><input type="submit" value="Go"></noscript>
+            </form>
+        </div>
+        <div class="col-md-6 text-right">
+            <form method="get" action="{{ url_for('all_quotes') }}" class="form-inline">
+                <label for="category_filter" class="mr-2">Filter by Category:</label>
+                <select name="category" id="category_filter" class="form-control mr-2" onchange="this.form.submit()">
+                    <option value="">All Categories</option>
+                    {% for category in categories %}
+                    <option value="{{ category }}" {% if category_filter == category %}selected{% endif %}>{{ category }}</option>
+                    {% endfor %}
+                </select>
+                <noscript><input type="submit" value="Go"></noscript>
+            </form>
+        </div>
+    </div>
+    <div class="row">
         {% for quote in quotes %}
-        <div class="card mb-4 border-0 shadow-sm">
-            <div class="card-body">
-                <h5 class="card-title text-primary">{{ quote['category'] }}</h5>
-                <p class="card-text">"{{ quote['text'] }}"</p>
-                <div class="quote-actions mt-3">
-                    <a href="{{ url_for('edit_quote', id=quote['id']) }}" class="btn btn-sm btn-outline-primary">Edit</a>
-                    <form action="{{ url_for('delete_quote', id=quote['id']) }}" method="post" style="display:inline;">
-                        <button type="submit" class="btn btn-sm btn-outline-danger">Delete</button>
-                    </form>
+        <div class="col-md-6 mb-4">
+            <div class="card h-100">
+                <div class="card-body">
+                    <h5 class="card-title">{{ quote['category'] }}</h5>
+                    <p class="card-text">"{{ quote['text'] }}"</p>
+                    <div class="quote-actions mt-3">
+                        <a href="{{ url_for('edit_quote', id=quote['id']) }}" class="btn btn-sm btn-outline-primary">Edit</a>
+                        <form action="{{ url_for('delete_quote', id=quote['id']) }}" method="post" style="display:inline;">
+                            <button type="submit" class="btn btn-sm btn-outline-danger">Delete</button>
+                        </form>
+                    </div>
                 </div>
             </div>
         </div>
         {% endfor %}
     </div>
-    <!-- Enhanced Pagination -->
-    <nav aria-label="Page navigation" class="mt-4">
+    <!-- Pagination -->
+    <nav aria-label="Page navigation">
         <ul class="pagination justify-content-center">
             {% if page > 1 %}
             <li class="page-item">
-                <a class="page-link" href="{{ url_for('all_quotes', page=page-1, per_page=per_page) }}">Previous</a>
+                <a class="page-link" href="{{ url_for('all_quotes', page=page-1, per_page=per_page, category=category_filter) }}">Previous</a>
             </li>
             {% else %}
             <li class="page-item disabled">
@@ -43,12 +70,12 @@
             {% endif %}
             {% for p in range(1, total_pages + 1) %}
             <li class="page-item {% if p == page %}active{% endif %}">
-                <a class="page-link" href="{{ url_for('all_quotes', page=p, per_page=per_page) }}">{{ p }}</a>
+                <a class="page-link" href="{{ url_for('all_quotes', page=p, per_page=per_page, category=category_filter) }}">{{ p }}</a>
             </li>
             {% endfor %}
             {% if page < total_pages %}
             <li class="page-item">
-                <a class="page-link" href="{{ url_for('all_quotes', page=page+1, per_page=per_page) }}">Next</a>
+                <a class="page-link" href="{{ url_for('all_quotes', page=page+1, per_page=per_page, category=category_filter) }}">Next</a>
             </li>
             {% else %}
             <li class="page-item disabled">
@@ -58,4 +85,39 @@
         </ul>
     </nav>
 </div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const toggleBtn = document.getElementById('toggleCountsBtn');
+        const countsDiv = document.getElementById('quoteCounts');
+        let countsLoaded = false;
+    
+        toggleBtn.addEventListener('click', function() {
+            if (!countsLoaded) {
+                // Fetch counts from the server
+                fetch('{{ url_for("quote_counts") }}')
+                    .then(response => response.json())
+                    .then(data => {
+                        // Build the HTML content
+                        let html = `<a class="dropdown-item d-flex justify-content-between align-items-center">
+                                        Total Quotes
+                                        <span class="badge badge-primary badge-pill">${data.total}</span>
+                                    </a>`;
+                        html += '<div class="dropdown-divider"></div>';
+                        for (const [category, count] of Object.entries(data.categories)) {
+                            html += `<a class="dropdown-item d-flex justify-content-between align-items-center">
+                                        ${category}
+                                        <span class="badge badge-primary badge-pill">${count}</span>
+                                     </a>`;
+                        }
+                        countsDiv.innerHTML = html;
+                        countsLoaded = true;
+                    })
+                    .catch(error => {
+                        console.error('Error fetching counts:', error);
+                    });
+            }
+        });
+    });
+    </script>
 {% endblock %}

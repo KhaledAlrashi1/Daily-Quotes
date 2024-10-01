@@ -1,5 +1,5 @@
 
-from flask import Flask, render_template, request, redirect, url_for, flash
+from flask import Flask, render_template, request, redirect, url_for, flash, jsonify
 import sqlite3
 import random
 import os
@@ -35,20 +35,32 @@ def init_db():
 def home():
     conn = get_db_connection()
     categories = [
-        "Spirituality", "Well-being", "Health",
-        "Personal Development", "Professional Growth", "Relationships",
-        "Resilience", "Creativity", "Productivity",
+        "Prayer", "Gratitude", "Happiness & Fulfilment", "Wisdom", "Human Gifts",
+        "Love & Relationships", "Mental Health", "Diet", "Exercise", "Creativity",
+        "Character", "Charisma", "Leadership", "Mastery", "Resilience",
+        "Career", "Finance", "Networking", "Communication", "Productivity",
     ]
 
-	# 1. Health:                    Diet, Exercise, and Physical Well-being
-	# 2. Spirituality:              Prayer, Gratitude, Meditation, and Mindfulness
-	# 3. Personal Development:      Character, Charisma, Mastery, and Self-improvement
-	# 4. Professional Growth:       Career, Finance, Entrepreneurship, and Leadership
-	# 5. Relationships:             Love & Relationships, Communication Skills, and Networking
-	# 6. Well-being:                Happiness & Fulfilment, Mental Health, and Emotional Well-being
-	# 7. Productivity:              Time Management, Goal Setting, and Focus Techniques
-	# 8. Creativity:                Innovation, Problem-solving, and Creative Thinking
-	# 9. Resilience:                Overcoming Adversity, Coping Strategies, and Stress Management
+    # 1. "Prayer"
+    # 2. "Gratitude"
+    # 3. "Happiness & Fulfilment"
+    # 4. "Wisdom"
+    # 5. "Human Gifts"
+    # 6. "Love & Relationships"
+    # 7. "Mental Health"
+    # 8. "Diet"
+    # 9. "Exercise"
+    # 10. "Creativity": Innovation, Problem-solving, and Creative Thinking
+    # 11. "Character"
+    # 12. "Charisma"
+    # 13. "Leadership"
+    # 14. "Mastery"
+    # 15. "Resilience": Overcoming Adversity, Coping Strategies, and Stress Management
+    # 16. "Career"
+    # 17. "Finance"
+    # 18. "Networking"
+    # 19. "Communication"
+    # 20. "Productivity": Time Management, Goal Setting, and Focus Techniques
 
     quotes = []
     for category in categories:
@@ -68,6 +80,13 @@ def refresh_quotes():
 
 @app.route('/add', methods=('GET', 'POST'))
 def add_quote():
+    categories = [
+        "Prayer", "Gratitude", "Happiness & Fulfilment", "Wisdom", "Human Gifts",
+        "Love & Relationships", "Mental Health", "Diet", "Exercise", "Creativity",
+        "Character", "Charisma", "Leadership", "Mastery", "Resilience",
+        "Career", "Finance", "Networking", "Communication", "Productivity",
+    ]
+    
     if request.method == 'POST':
         # Retrieve all quote inputs and categories from the form
         quotes_list = request.form.getlist('quotes')
@@ -86,7 +105,7 @@ def add_quote():
             return redirect(url_for('home'))
         else:
             flash('Please enter at least one quote and select a category.', 'danger')
-    return render_template('add_quote.html')
+    return render_template('add_quote.html', categories=categories)
 
 @app.route('/edit/<int:id>', methods=('GET', 'POST'))
 def edit_quote(id):
@@ -96,6 +115,14 @@ def edit_quote(id):
         conn.close()
         flash('Quote not found.', 'danger')
         return redirect(url_for('home'))
+    
+    categories = [
+        "Prayer", "Gratitude", "Happiness & Fulfilment", "Wisdom", "Human Gifts",
+        "Love & Relationships", "Mental Health", "Diet", "Exercise", "Creativity",
+        "Character", "Charisma", "Leadership", "Mastery", "Resilience",
+        "Career", "Finance", "Networking", "Communication", "Productivity",
+    ]
+
     if request.method == 'POST':
         quote_text = request.form['quote']
         category = request.form['category']
@@ -108,7 +135,8 @@ def edit_quote(id):
         else:
             flash('Please enter the quote and select a category.', 'danger')
     conn.close()
-    return render_template('edit_quote.html', quote=quote)
+    return render_template('edit_quote.html', quote=quote, categories=categories)
+
 
 @app.route('/delete/<int:id>', methods=('POST',))
 def delete_quote(id):
@@ -122,22 +150,58 @@ def delete_quote(id):
 # Route to display all quotes
 @app.route('/all_quotes')
 def all_quotes():
-    # Get the 'per_page' parameter from the query string, default to 10
+    # Get query parameters
     per_page = request.args.get('per_page', 10, type=int)
-    # Get the 'page' parameter from the query string, default to 1
     page = request.args.get('page', 1, type=int)
+    category_filter = request.args.get('category', '', type=str)
+
 
     conn = get_db_connection()
-    # Get total number of quotes
-    total_quotes = conn.execute('SELECT COUNT(*) FROM quotes').fetchone()[0]
-    # Calculate total pages
-    total_pages = (total_quotes + per_page - 1) // per_page
 
-    # Fetch quotes for the current page
-    quotes = conn.execute('SELECT * FROM quotes LIMIT ? OFFSET ?', (per_page, (page - 1) * per_page)).fetchall()
+    categories = [
+        "Prayer", "Gratitude", "Happiness & Fulfilment", "Wisdom", "Human Gifts",
+        "Love & Relationships", "Mental Health", "Diet", "Exercise", "Creativity",
+        "Character", "Charisma", "Leadership", "Mastery", "Resilience",
+        "Career", "Finance", "Networking", "Communication", "Productivity",
+    ]
+
+    # Build the query based on the category filter
+    if category_filter and category_filter in categories:
+        total_quotes = conn.execute('SELECT COUNT(*) FROM quotes WHERE category = ?', (category_filter,)).fetchone()[0]
+        quotes = conn.execute(
+            'SELECT * FROM quotes WHERE category = ? LIMIT ? OFFSET ?',
+            (category_filter, per_page, (page - 1) * per_page)
+        ).fetchall()
+    else:
+        total_quotes = conn.execute('SELECT COUNT(*) FROM quotes').fetchone()[0]
+        quotes = conn.execute('SELECT * FROM quotes LIMIT ? OFFSET ?', (per_page, (page - 1) * per_page)).fetchall()
+
+    total_pages = (total_quotes + per_page - 1) // per_page
     conn.close()
 
-    return render_template('all_quotes.html', quotes=quotes, page=page, per_page=per_page, total_pages=total_pages)
+    return render_template(
+        'all_quotes.html',
+        quotes=quotes,
+        page=page,
+        per_page=per_page,
+        total_pages=total_pages,
+        categories=categories,
+        category_filter=category_filter
+    )
+
+@app.route('/quote_counts')
+def quote_counts():
+    conn = get_db_connection()
+    # Total quotes
+    total_quotes = conn.execute('SELECT COUNT(*) FROM quotes').fetchone()[0]
+    # Quotes per category
+    category_counts = conn.execute('SELECT category, COUNT(*) as count FROM quotes GROUP BY category').fetchall()
+    conn.close()
+
+    # Convert to dictionary
+    counts = {'total': total_quotes, 'categories': {row['category']: row['count'] for row in category_counts}}
+    return jsonify(counts)
+
 @app.context_processor
 def inject_current_year():
     return {'current_year': datetime.utcnow().year}

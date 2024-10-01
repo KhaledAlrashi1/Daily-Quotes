@@ -4,7 +4,7 @@
 <div class="container">
     <h1 class="my-4 text-center">Quotes of the Day</h1>
     <div class="owl-carousel owl-theme">
-        {% for quote_group in quotes|batch(3, '') %}
+        {% for quote_group in quotes|batch(4, '') %}
         <div class="item">
             {% for quote in quote_group %}
             {% if quote %}
@@ -21,7 +21,7 @@
     </div>
 </div>
 <div class="text-center mt-4">
-    <a href="{{ url_for('refresh_quotes') }}" class="btn btn-primary mr-2">Refresh Quotes</a>
+    <!-- <a href="{{ url_for('refresh_quotes') }}" class="btn btn-primary mr-2">Refresh Quotes</a> -->
     <a href="{{ url_for('add_quote') }}" class="btn btn-success">Add New Quote(s)</a>
     <a href="{{ url_for('all_quotes') }}" class="btn btn-info">View All Quotes</a>
 </div>

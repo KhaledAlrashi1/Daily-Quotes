@@ -7,50 +7,40 @@
         <div id="quote-fields">
             <div class="form-group quote-field">
                 <label for="quote1">Quote 1</label>
-                <textarea class="form-control" id="quote1" name="quotes" rows="3" required></textarea>
-                <small class="form-text text-muted">Enter a new quote.</small>
-                
-                <label for="category1" class="mt-2">Category</label>
-                <select class="form-control" id="category1" name="categories" required>
+                <textarea class="form-control mb-2" id="quote1" name="quotes" rows="3" required></textarea>
+                <label for="category1">Category</label>
+                <select class="form-control mb-4" id="category1" name="categories" required>
                     <option value="" disabled selected>Select a category</option>
-                    <option value="Health">Health</option>
-                    <option value="Professional Growth">Professional Growth</option>
-                    <option value="Relationships">Relationships</option>
-                    <option value="Well-being">Well-being</option>
-                    <option value="Personal Development">Personal Development</option>
-                    <option value="Spirituality">Spirituality</option>
-                    <option value="Resilience">Resilience</option>
-                    <option value="Creativity">Creativity</option>                    
-                    <option value="Productivity">Productivity</option>                    
+                    {% for category in categories %}
+                    <option value="{{ category }}">{{ category }}</option>
+                    {% endfor %}
                 </select>
-                <small class="form-text text-muted">Select the appropriate category for the quote.</small>
             </div>
         </div>
-        
-        <div class="text-center mt-3">
-            <button type="button" class="btn btn-secondary mb-3" id="addQuoteBtn">Add Another Quote</button>
+        <div class="text-center mb-5">
+            <button type="button" class="btn btn-secondary btn-lg mb-3" id="addQuoteBtn">Add Another Quote</button>
         </div>
-        
         <div class="text-center">
-            <button type="submit" class="btn btn-success btn-lg">Add Quote(s)</button>
+            <button type="submit" class="btn btn-success btn-lg mr-3">Save the Quote(s)</button>
             <a href="{{ url_for('home') }}" class="btn btn-outline-secondary btn-lg">Back to Home</a>
         </div>
     </form>
 </div>
 
-<!-- JavaScript to handle adding more quote fields -->
+<!-- Include this script at the end of the file -->
 <script>
 document.addEventListener('DOMContentLoaded', function() {
     let quoteCount = 1;
-    const maxQuotes = 10;
+    const maxQuotes = 10; // Set a maximum number of quotes if desired
     const addQuoteBtn = document.getElementById('addQuoteBtn');
     const quoteFields = document.getElementById('quote-fields');
 
     addQuoteBtn.addEventListener('click', function() {
+        // Get all current quote textareas
         const currentQuotes = document.querySelectorAll('.quote-field textarea');
         const currentCategories = document.querySelectorAll('.quote-field select');
 
-        // Check if any existing fields are empty
+        // Check if any of the existing fields are empty
         for (let i = 0; i < currentQuotes.length; i++) {
             if (currentQuotes[i].value.trim() === '' || currentCategories[i].value === '') {
                 alert('Please fill out all existing quote fields and select categories before adding a new one.');
@@ -66,29 +56,62 @@ document.addEventListener('DOMContentLoaded', function() {
 
         quoteCount++;
         const newQuoteDiv = document.createElement('div');
-        newQuoteDiv.classList.add('form-group', 'quote-field', 'mt-3');
+        newQuoteDiv.classList.add('form-group', 'quote-field');
         newQuoteDiv.innerHTML = `
             <label for="quote${quoteCount}">Quote ${quoteCount}</label>
             <textarea class="form-control" id="quote${quoteCount}" name="quotes" rows="3" required></textarea>
-            <small class="form-text text-muted">Enter a new quote.</small>
-            
-            <label for="category${quoteCount}" class="mt-2">Category</label>
+            <label for="category${quoteCount}">Category</label>
             <select class="form-control" id="category${quoteCount}" name="categories" required>
                 <option value="" disabled selected>Select a category</option>
-                <option value="Health">Health</option>
-                <option value="Professional Growth">Professional Growth</option>
-                <option value="Relationships">Relationships</option>
-                <option value="Well-being">Well-being</option>
-                <option value="Personal Development">Personal Development</option>
-                <option value="Spirituality">Spirituality</option>
-                <option value="Resilience">Resilience</option>
-                <option value="Creativity">Creativity</option>
-                <option value="Productivity">Productivity</option>
+                {% for category in categories %}
+                <option value="{{ category }}">{{ category }}</option>
+                {% endfor %}
             </select>
-            <small class="form-text text-muted">Select the appropriate category for the quote.</small>
+            <div class="text-right">
+                <button type="button" class="btn btn-danger btn-sm remove-quote-btn mt-2">Remove</button>
+            </div>
         `;
         quoteFields.appendChild(newQuoteDiv);
     });
+
+    // Event delegation for "Remove" buttons
+    quoteFields.addEventListener('click', function(event) {
+        if (event.target && event.target.matches('button.remove-quote-btn')) {
+            event.preventDefault();
+            const quoteField = event.target.closest('.quote-field');
+            if (quoteFields.querySelectorAll('.quote-field').length > 1) {
+                quoteField.remove();
+                quoteCount--;
+                // Renumber remaining quote fields
+                renumberQuotes();
+            } else {
+                alert('At least one quote is required.');
+            }
+        }
+    });
+    
+    // Function to renumber quote fields
+    function renumberQuotes() {
+        const quoteFieldsList = document.querySelectorAll('.quote-field');
+        quoteCount = quoteFieldsList.length;
+        let index = 1;
+        quoteFieldsList.forEach(function(field) {
+            const quoteLabel = field.querySelector('label[for^="quote"]');
+            const categoryLabel = field.querySelector('label[for^="category"]');
+            const quoteTextarea = field.querySelector('textarea');
+            const categorySelect = field.querySelector('select');
+
+            // Update labels and IDs
+            quoteLabel.setAttribute('for', `quote${index}`);
+            quoteLabel.textContent = `Quote ${index}`;
+            quoteTextarea.setAttribute('id', `quote${index}`);
+
+            categoryLabel.setAttribute('for', `category${index}`);
+            categorySelect.setAttribute('id', `category${index}`);
+
+            index++;
+        });
+    }
 });
 </script>
 {% endblock %}

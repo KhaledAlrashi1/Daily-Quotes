@@ -7,27 +7,18 @@
         <div class="form-group">
             <label for="quote">Quote</label>
             <textarea class="form-control" id="quote" name="quote" rows="4" required>{{ quote['text'] }}</textarea>
-            <small class="form-text text-muted">Edit the quote text as needed.</small>
         </div>
         <div class="form-group">
             <label for="category">Category</label>
             <select class="form-control" id="category" name="category" required>
-                <option value="Health" {% if quote['category'] == 'Health' %}selected{% endif %}>Health</option>
-                <option value="Professional Growth" {% if quote['category'] == 'Professional Growth' %}selected{% endif %}>Professional Growth</option>
-                <option value="Relationships" {% if quote['category'] == 'Relationships' %}selected{% endif %}>Relationships</option>
-                <option value="Well-being" {% if quote['category'] == 'Well-being' %}selected{% endif %}>Well-being</option>
-                <option value="Personal Development" {% if quote['category'] == 'Personal Development' %}selected{% endif %}>Personal Development</option>
-                <option value="Spirituality" {% if quote['category'] == 'Spirituality' %}selected{% endif %}>Spirituality</option>
-                <option value="Resilience" {% if quote['category'] == 'Resilience' %}selected{% endif %}>Resilience</option>
-                <option value="Creativity" {% if quote['category'] == 'Creativity' %}selected{% endif %}>Creativity</option>
-                <option value="Productivity" {% if quote['category'] == 'Productivity' %}selected{% endif %}>Productivity</option>
-
+                {% for category in categories %}
+                <option value="{{ category }}" {% if quote['category'] == category %}selected{% endif %}>{{ category }}</option>
+                {% endfor %}
             </select>
-            <small class="form-text text-muted">Select the appropriate category.</small>
         </div>
-        <div class="text-center mt-4">
-            <button type="submit" class="btn btn-success btn-lg mr-2">Update Quote</button>
-            <a href="{{ url_for('home') }}" class="btn btn-outline-secondary btn-lg">Back to Home</a>
+        <div class="text-center">
+            <button type="submit" class="btn btn-primary btn-lg">Update Quote</button>
+            <a href="{{ url_for('all_quotes') }}" class="btn btn-outline-secondary btn-lg">Back to All Quotes</a>
         </div>
     </form>
 </div>
