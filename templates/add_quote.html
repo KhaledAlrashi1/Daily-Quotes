@@ -1,6 +1,7 @@
 {% extends 'base.html' %}
 
 {% block content %}
+
 <div class="container">
     <h1 class="my-4 text-center">Add New Quote(s)</h1>
     <form method="post" id="quoteForm">
@@ -89,7 +90,7 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         }
     });
-    
+
     // Function to renumber quote fields
     function renumberQuotes() {
         const quoteFieldsList = document.querySelectorAll('.quote-field');

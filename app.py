@@ -40,7 +40,7 @@ def home():
         "Character", "Charisma", "Leadership", "Mastery", "Resilience",
         "Career", "Finance", "Networking", "Communication", "Productivity",
     ]
-    
+
     # "Creativity": Innovation, Problem-solving, and Creative Thinking
     # "Resilience": Overcoming Adversity, Coping Strategies, and Stress Management
     # "Productivity": Time Management, Goal Setting, and Focus Techniques
@@ -147,7 +147,6 @@ def all_quotes():
     page = request.args.get('page', 1, type=int)
     category_filter = request.args.get('category', '', type=str)
 
-
     conn = get_db_connection()
 
     categories = [
@@ -169,8 +168,19 @@ def all_quotes():
         quotes = conn.execute('SELECT * FROM quotes LIMIT ? OFFSET ?', (per_page, (page - 1) * per_page)).fetchall()
 
     total_pages = (total_quotes + per_page - 1) // per_page
+
     conn.close()
 
+    shades_of_green = [
+        "#66bb6a",  # Medium green
+        "#4caf50",  # Slightly darker green
+        "#388e3c",  # Dark green
+        "#2e7d32",  # Darker green
+        "#1b5e20",  # Very dark green
+        "#000000"   # Black
+    ]
+
+    # Pass shades_of_green to the template
     return render_template(
         'all_quotes.html',
         quotes=quotes,
@@ -178,7 +188,8 @@ def all_quotes():
         per_page=per_page,
         total_pages=total_pages,
         categories=categories,
-        category_filter=category_filter
+        category_filter=category_filter,
+        shades_of_green=shades_of_green
     )
 
 @app.route('/quote_counts')

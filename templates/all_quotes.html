@@ -1,7 +1,8 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<div class="container all-quotes">
+
+<div class="all-quotes-container">   
     <h1 class="my-4 text-center">All Quotes</h1>
     <div class="text-center my-3 mb-5">
         <div class="dropdown">
@@ -40,20 +41,25 @@
     </div>
     <div class="row">
         {% for quote in quotes %}
-        <div class="col-md-6 mb-4">
-            <div class="card h-100">
-                <div class="card-body">
-                    <h5 class="card-title">{{ quote['category'] }}</h5>
-                    <p class="card-text">"{{ quote['text'] }}"</p>
-                    <div class="quote-actions mt-3">
-                        <a href="{{ url_for('edit_quote', id=quote['id']) }}" class="btn btn-sm btn-outline-primary">Edit</a>
-                        <form action="{{ url_for('delete_quote', id=quote['id']) }}" method="post" style="display:inline;">
-                            <button type="submit" class="btn btn-sm btn-outline-danger">Delete</button>
-                        </form>
+            {% set category_index = categories.index(quote['category']) %}
+            {% set color = shades_of_green[category_index % shades_of_green|length] %}
+            {% set is_dark = (color == '#000000' or color == '#1b5e20') %}
+            <div class="col-md-6 mb-4">
+                <div class="card h-100">
+                    <div class="card-body">
+                        <span class="badge mb-2 category-badge {% if is_dark %}dark-background{% endif %}" style="background-color: {{ color }};">
+                            {{ quote['category'] }}
+                        </span>
+                        <p class="card-text">"{{ quote['text'] }}"</p>
+                        <div class="quote-actions mt-3">
+                            <a href="{{ url_for('edit_quote', id=quote['id']) }}" class="btn btn-sm btn-outline-primary">Edit</a>
+                            <form action="{{ url_for('delete_quote', id=quote['id']) }}" method="post" style="display:inline;">
+                                <button type="submit" class="btn btn-sm btn-outline-danger">Delete</button>
+                            </form>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
         {% endfor %}
     </div>
     <!-- Pagination -->

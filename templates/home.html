@@ -1,43 +1,75 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<div class="container">
-    <h1 class="my-4 text-center">Quotes of the Day</h1>
+
+<div class="container home-page">
+    <h1 class="my-4 text-center mb-5">Quotes of the Day</h1>
     <div id="quotes-container">
         {% for quote in quotes %}
-        <div class="card border-0 shadow-sm mb-3">
+        {% set color = shades_of_green[loop.index0 % shades_of_green|length] %}
+        {% set is_dark = (color == '#000000' or color == '#001100' or color == '#002200' or color == '#003300' or color == '#0d4d00') %}
+        
+        <!-- Quote Card with unique ID -->
+        <div id="quote-card-{{ loop.index0 }}" class="card border-0 shadow-sm mb-3">
             <div class="card-body">
-                <span class="badge mb-2 category-badge" style="background-color: {{ shades_of_green[loop.index0 % shades_of_green|length] }};">
+                <!-- Category Badge -->
+                <span class="badge mb-2 category-badge {% if is_dark %}dark-background{% endif %}" style="background-color: {{ color }};">
                     {{ quote['category'] }}
                 </span>
+                <!-- Quote Text -->
                 <p id="quote-text-{{ loop.index0 }}" class="card-text quote-text" data-text="{{ quote['text'] }}"></p>
             </div>
         </div>
+
+        {% if not loop.last %}
+        <!-- Divider with unique ID -->
+        <div class="quote-divider" id="divider-{{ loop.index0 }}"></div>
+        {% endif %}
+
         {% endfor %}
     </div>
 </div>
 <div class="text-center mt-4">
-    <a href="{{ url_for('add_quote') }}" class="btn btn-success">Add New Quote(s)</a>
-    <a href="{{ url_for('all_quotes') }}" class="btn btn-info">View All Quotes</a>
 </div>
 
 <!-- Include the script to handle the typing effect -->
 <script>
     document.addEventListener('DOMContentLoaded', function() {
         const quotes = document.querySelectorAll('.quote-text');
+        let totalDelay = 0;
 
         quotes.forEach((quoteElement, index) => {
             const fullText = quoteElement.getAttribute('data-text');
+            const quoteCard = document.getElementById('quote-card-' + index);
             let i = 0;
+            const typingSpeed = 30; // Adjust typing speed here
+            const startDelay = totalDelay;
 
-            function typeWriter() {
-                if (i < fullText.length) {
-                    quoteElement.innerHTML += fullText.charAt(i);
-                    i++;
-                    setTimeout(typeWriter, 30); // Adjust typing speed here
+            setTimeout(function() {
+                // Before starting to type, show the quote card
+                if (quoteCard) {
+                    quoteCard.style.opacity = '1';
                 }
-            }
-            typeWriter();
+
+                function typeWriter() {
+                    if (i < fullText.length) {
+                        quoteElement.innerHTML += fullText.charAt(i);
+                        i++;
+                        setTimeout(typeWriter, typingSpeed);
+                    } else {
+                        // Typing is complete, show the divider after a short delay
+                        setTimeout(function() {
+                            const divider = document.getElementById('divider-' + index);
+                            if (divider) {
+                                divider.style.opacity = '1'; // Fade in the divider
+                            }
+                        }, 200); // Delay before showing the divider
+                    }
+                }
+                typeWriter();
+            }, startDelay);
+
+            totalDelay += fullText.length * typingSpeed + 500; // Adjust delay between quotes
         });
     });
 </script>
