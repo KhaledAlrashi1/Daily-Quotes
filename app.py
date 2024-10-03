@@ -1,10 +1,10 @@
 
-from flask import Flask, render_template, request, redirect, url_for, flash, jsonify
+from flask import Flask, render_template, request, redirect, url_for, flash, jsonify, session
 import sqlite3
-import random
-import os
-from werkzeug.utils import secure_filename
-import pandas as pd  # If using pandas
+# import random
+# import os
+# from werkzeug.utils import secure_filename
+# import pandas as pd  # If using pandas
 import secrets
 from datetime import datetime
 
@@ -126,9 +126,9 @@ def edit_quote(id):
             return redirect(url_for('all_quotes'))
         else:
             flash('Please enter the quote and select a category.', 'danger')
+
     conn.close()
     return render_template('edit_quote.html', quote=quote, categories=categories)
-
 
 @app.route('/delete/<int:id>', methods=('POST',))
 def delete_quote(id):
@@ -168,6 +168,39 @@ def all_quotes():
         quotes = conn.execute('SELECT * FROM quotes LIMIT ? OFFSET ?', (per_page, (page - 1) * per_page)).fetchall()
 
     total_pages = (total_quotes + per_page - 1) // per_page
+    
+    # Calculate pages to show
+    pages_to_show = []
+
+    if total_pages <= 5:
+        pages_to_show = list(range(1, total_pages + 1))
+    else:
+        pages_to_show = []
+
+        # Always show the first page
+        pages_to_show.append(1)
+
+        # Determine when to show ellipses
+        if page > 3:
+            pages_to_show.append('...')
+
+        # Determine the range of page numbers to display around the current page
+        if page <= 3:
+            pages_to_show.extend([2, 3, 4])
+        elif page >= total_pages - 2:
+            pages_to_show.extend([total_pages - 3, total_pages - 2, total_pages - 1])
+        else:
+            pages_to_show.extend([page - 1, page, page + 1])
+
+        # Determine when to show ellipses
+        if page < total_pages - 2:
+            pages_to_show.append('...')
+
+        # Always show the last page
+        pages_to_show.append(total_pages)
+
+    # Remove duplicates and sort the list
+    pages_to_show = [x for i, x in enumerate(pages_to_show) if x not in pages_to_show[:i]]
 
     conn.close()
 
@@ -189,7 +222,8 @@ def all_quotes():
         total_pages=total_pages,
         categories=categories,
         category_filter=category_filter,
-        shades_of_green=shades_of_green
+        shades_of_green=shades_of_green,
+        pages_to_show=pages_to_show
     )
 
 @app.route('/quote_counts')

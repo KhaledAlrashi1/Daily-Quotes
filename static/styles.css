@@ -13,10 +13,10 @@ body {
 
 /* Enhanced gradient background for the hero section */
 .hero-section {
-    background: linear-gradient(135deg, #88cc88, #77bb77, #99dd99);
+    background: linear-gradient(45deg, #88cc88, #77bb77, #99dd99);
     padding: 80px 0;
-    background-size: 200% 200%;
-    animation: gradientAnimation 8s ease infinite;
+    background-size: 100% 100%;
+    animation: gradientAnimation 5s ease infinite;
     text-align: center;
     color: #fff;
 }
@@ -65,7 +65,7 @@ body::before {
 /* Improved Navigation bar */
 .navbar {
     padding: 5px 0; /* Reduce the top and bottom padding */
-    height: 60px; /* Adjust the height as needed */
+    height: 80px; /* Adjust the height as needed */
     background: rgba(34, 34, 34, 0.9);
     transition: background 0.3s;
     position: sticky;
@@ -81,6 +81,7 @@ body::before {
 .navbar-brand, .navbar-nav .nav-link {
     color: #fff;
     font-weight: 500;
+    font-size: 28px;
     transition: color 0.3s;
 }
 
