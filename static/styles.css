@@ -3,23 +3,42 @@ body {
     margin: 0;
     padding: 0;
     font-family: 'Montserrat', sans-serif;
-    color: #333;
+    color: #1f1616;
     overflow-x: hidden;
     font-size: 16px;
     line-height: 1.6;
-    background: #f7f7f7;
+    background: #111f0f;
     transition: all 0.3s ease;
 }
 
-/* Enhanced gradient background for the hero section */
+/* Hero Section Styling */
 .hero-section {
-    background: linear-gradient(45deg, #88cc88, #77bb77, #99dd99);
-    padding: 80px 0;
-    background-size: 100% 100%;
-    animation: gradientAnimation 5s ease infinite;
-    text-align: center;
-    color: #fff;
+    position: relative;
+    /* background-image: url('{{ url_for('static', filename='images/green.jpg') }}'); */
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
+
+.hero-section .overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 77, 0, 0.5); /* Dark green overlay */
+}
+
+.hero-section .hero-content {
+    position: relative;
+    z-index: 1;
+    padding: 0 15px;
+}
+
 
 @keyframes gradientAnimation {
     0% { background-position: 0% 50%; }
@@ -38,7 +57,7 @@ h1 {
     text-shadow: 1px 1px 4px rgba(255, 255, 255, 0.5);
     font-size: 2.5em;
     margin-bottom: 30px;
-    color: #2e8b57;
+    color: #ffffff;
 }
 
 body::before {
@@ -48,9 +67,9 @@ body::before {
     left: -50%;
     width: 200%;
     height: 100%;
-    background: linear-gradient(-45deg, #e0f7e0, #a8e6a8, #d0ffd0, #b0f4b0);
+    background: linear-gradient(-45deg, #3333ac, #1111e9, #0000ff, #010182);
     background-size: 400% 400%;
-    animation: gradientAnimation 20s ease infinite;
+    animation: gradientAnimation 15s ease infinite;
     z-index: -1;
     opacity: 0.5;
 }
@@ -62,10 +81,10 @@ body::before {
     padding: 0 15px;
 }
 
-/* Improved Navigation bar */
+/* Navigation bar */
 .navbar {
-    padding: 5px 0; /* Reduce the top and bottom padding */
-    height: 80px; /* Adjust the height as needed */
+    padding: 5px 0; /* top and bottom padding */
+    height: 80px; /*  the height */
     background: rgba(34, 34, 34, 0.9);
     transition: background 0.3s;
     position: sticky;
@@ -137,11 +156,11 @@ body::before {
 }
 
 .card .card-text {
-    font-size: 1.35rem; /* Adjust the font size as needed */
+    font-size: 1.35rem; /*  the font size */
     /* color: #333; */
     line-height: 1.6;
     font-style: italic;
-    color: #555;
+    color: #000000;
     font-family: 'Montserrat', sans-serif;
 }
 
@@ -188,6 +207,19 @@ body::before {
 .card .btn-outline-danger:hover {
     background-color: #8b0000;
     color: #fff;
+}
+
+.btn-outline-light {
+    border: 2px solid #fff;
+    color: #fff;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.btn-outline-light:hover {
+    background-color: #fff;
+    color: #2e8b57;
+    transform: translateY(-5px);
+    box-shadow: 0 15px 20px rgba(255, 255, 255, 0.2);
 }
 
 /* Quote Display Area */
@@ -237,14 +269,17 @@ body::before {
     transition: background-color 0.3s, transform 0.3s;
 }
 
+/* Button Styles */
 .btn-primary {
     background: linear-gradient(135deg, #2e8b57, #3cb371);
     border: none;
     color: #fff;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
 .btn-primary:hover {
-    transform: translateY(-2px);
+    transform: translateY(-5px);
+    box-shadow: 0 15px 20px rgba(46, 139, 87, 0.4);
     background: linear-gradient(135deg, #3cb371, #2e8b57);
 }
 
@@ -362,7 +397,7 @@ a:hover {
 .quote-divider::before {
     content: "";
     display: block;
-    border-top: 2px solid #000000; /* Line color */
+    border-top: 2px solid #ffffff; /* Line color */
     position: absolute;
     top: 50%;
     left: 10%;
@@ -380,6 +415,45 @@ a:hover {
     font-size: 24px; /* Adjust symbol size */
     color: #000000; /* Symbol color */
     animation: symbolFadeIn 0.5s ease-in;
+}
+
+/* Floating symbols background effect */
+.floating-symbols {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 0; /* Behind all other content */
+    pointer-events: none; /* Symbols don't interfere with interactions */
+    overflow: hidden;
+}
+
+.floating-symbol {
+    position: absolute;
+    font-size: 4rem; /* Adjust this to make the symbols larger */
+    color: rgba(255, 255, 255, 1); /* Opaque white to test visibility */
+    animation: floatAnimation 10s ease-in-out infinite;
+    font-family: 'Playfair Display', serif; /* Or another serif font for quotes */
+}
+
+
+.all-quotes-container label {
+    color: white;
+}
+@keyframes floatAnimation {
+    0% {
+        transform: translateY(0px) rotate(0deg);
+        opacity: 0.5;
+    }
+    50% {
+        transform: translateY(-50px) rotate(10deg);
+        opacity: 0.7;
+    }
+    100% {
+        transform: translateY(0px) rotate(0deg);
+        opacity: 0.5;
+    }
 }
 
 @keyframes symbolFadeIn {

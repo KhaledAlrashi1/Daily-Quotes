@@ -3,7 +3,12 @@
 {% block content %}
 
 <div class="container home-page">
-    <h1 class="my-4 text-center mb-5">Quotes of the Day</h1>
+    <h1 class="my-4 text-center mb-4">Quotes of the Day</h1>
+    
+    <div class="text-center mb-4">
+        <a href="{{ url_for('next_quotes') }}" class="btn btn-success btn-lg mb-3">Another Set of Quotes</a>
+    </div>
+
     <div id="quotes-container">
         {% for quote in quotes %}
         {% set color = shades_of_green[loop.index0 % shades_of_green|length] %}
@@ -73,4 +78,5 @@
         });
     });
 </script>
+
 {% endblock %}

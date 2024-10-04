@@ -1,10 +1,7 @@
 
 from flask import Flask, render_template, request, redirect, url_for, flash, jsonify, session
 import sqlite3
-# import random
-# import os
-# from werkzeug.utils import secure_filename
-# import pandas as pd  # If using pandas
+from datetime import date
 import secrets
 from datetime import datetime
 
@@ -45,14 +42,33 @@ def home():
     # "Resilience": Overcoming Adversity, Coping Strategies, and Stress Management
     # "Productivity": Time Management, Goal Setting, and Focus Techniques
 
+    # Initialize session offset if not present
+    if 'quote_offset' not in session:
+        session['quote_offset'] = 0
+
     quotes_data = []
+    today = date.today()
+    fixed_start_date = date(2024, 1, 1)  # Choose a fixed start date
+    day_count = (today - fixed_start_date).days
+
+    # Adjust day_count with session offset
+    adjusted_day_count = day_count + session['quote_offset']
+
     for category in categories:
-        quote = conn.execute(
-            'SELECT * FROM quotes WHERE category = ? ORDER BY RANDOM() LIMIT 1',
+        # Fetch all quotes in the category, ordered by ID
+        quotes = conn.execute(
+            'SELECT * FROM quotes WHERE category = ? ORDER BY id',
             (category,)
-        ).fetchone()
-        if quote:
+        ).fetchall()
+        n = len(quotes)
+        if n > 0:
+            # Calculate the index based on the adjusted day count
+            index = adjusted_day_count % n
+            quote = quotes[index]
             quotes_data.append({'text': quote['text'], 'category': quote['category']})
+        else:
+            # No quotes in this category
+            pass
     conn.close()
 
     shades_of_green = [
@@ -64,6 +80,14 @@ def home():
     ]
 
     return render_template('home.html', quotes=quotes_data, shades_of_green=shades_of_green)
+
+@app.route('/next_quotes')
+def next_quotes():
+    if 'quote_offset' in session:
+        session['quote_offset'] += 1
+    else:
+        session['quote_offset'] = 1
+    return redirect(url_for('home'))
 
 # Route to refresh quotes
 @app.route('/refresh')

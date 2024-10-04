@@ -14,10 +14,12 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.theme.default.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+
 </head>
 <body>
     <!-- Navbar -->
-    <nav class="navbar navbar-expand-lg navbar-dark fixed-top">
+    <nav class="navbar navbar-expand-lg navbar-dark fixed-top transparent-nav">
         <div class="container">
             <a class="navbar-brand" href="{{ url_for('home') }}">Quotes</a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
@@ -39,14 +41,18 @@
             </div>
         </div>
     </nav>
-
+    
     <!-- Hero Section -->
-    <header class="hero-section">
-        <div class="container text-center text-white">
+    <header class="hero-section" style="background-image: url('{{ url_for('static', filename='images/green.jpg') }}');">
+        <div class="overlay"></div>
+        <div class="container text-center text-white hero-content">
             <h1 class="display-4 animate__animated animate__fadeInDown">Inspire Yourself Daily</h1>
-            <p class="lead animate__animated animate__fadeInUp">Curated quotes for personal growth and development.</p>
-            <a href="{{ url_for('add_quote') }}" class="btn btn-primary btn-lg mt-4 mr-2">Add Your Own Quotes</a>
-            <a href="{{ url_for('all_quotes') }}" class="btn btn-outline-light btn-lg mt-4">Explore All Quotes</a>
+            <p class="lead animate__animated animate__fadeInUp animate__delay-1s">Curated quotes for personal growth and development.</p>
+            <a href="{{ url_for('add_quote') }}" class="btn btn-primary btn-lg mt-4 mr-2 animate__animated animate__fadeInUp animate__delay-2s">Add Your Own Quotes</a>
+            <a id="hero-last-element" href="{{ url_for('all_quotes') }}" class="btn btn-outline-light btn-lg mt-4 animate__animated animate__fadeInUp animate__delay-2s">Explore All Quotes</a>
+        </div>
+        <div class="scroll-indicator">
+            <span></span>
         </div>
     </header>
 
@@ -63,9 +69,10 @@
         </div>
         {% endif %}
         {% endwith %}
-        
+
         {% block content %}{% endblock %}
     </div>
+
 
     <!-- Footer -->
     <footer class="bg-dark text-white mt-5">
