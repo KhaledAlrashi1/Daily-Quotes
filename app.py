@@ -184,14 +184,18 @@ def all_quotes():
     if category_filter and category_filter in categories:
         total_quotes = conn.execute('SELECT COUNT(*) FROM quotes WHERE category = ?', (category_filter,)).fetchone()[0]
         quotes = conn.execute(
-            'SELECT * FROM quotes WHERE category = ? LIMIT ? OFFSET ?',
+            'SELECT * FROM quotes WHERE category = ? ORDER BY RANDOM() LIMIT ? OFFSET ?',
             (category_filter, per_page, (page - 1) * per_page)
         ).fetchall()
+
+        # Add the missing total_pages calculation for category filtering
+        total_pages = (total_quotes + per_page - 1) // per_page
+
     else:
         total_quotes = conn.execute('SELECT COUNT(*) FROM quotes').fetchone()[0]
-        quotes = conn.execute('SELECT * FROM quotes LIMIT ? OFFSET ?', (per_page, (page - 1) * per_page)).fetchall()
+        quotes = conn.execute('SELECT * FROM quotes ORDER BY RANDOM() LIMIT ? OFFSET ?', (per_page, (page - 1) * per_page)).fetchall()
 
-    total_pages = (total_quotes + per_page - 1) // per_page
+        total_pages = (total_quotes + per_page - 1) // per_page
     
     # Calculate pages to show
     pages_to_show = []
