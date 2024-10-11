@@ -9,6 +9,7 @@
         <a href="{{ url_for('next_quotes') }}" class="btn btn-success btn-lg mb-3">Another Set of Quotes</a>
     </div>
 
+
     <div id="quotes-container">
         {% for quote in quotes %}
         {% set color = shades_of_green[loop.index0 % shades_of_green|length] %}
@@ -25,7 +26,6 @@
                 <p id="quote-text-{{ loop.index0 }}" class="card-text quote-text" data-text="{{ quote['text'] }}"></p>
             </div>
         </div>
-
         {% if not loop.last %}
         <!-- Divider with unique ID -->
         <div class="quote-divider" id="divider-{{ loop.index0 }}"></div>
@@ -33,6 +33,7 @@
 
         {% endfor %}
     </div>
+
 </div>
 <div class="text-center mt-4">
 </div>

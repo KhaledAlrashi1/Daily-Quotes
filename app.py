@@ -1,9 +1,11 @@
 
-from flask import Flask, render_template, request, redirect, url_for, flash, jsonify, session
+from flask import Flask, render_template, request, redirect, url_for, flash, jsonify
 import sqlite3
 from datetime import date
 import secrets
 from datetime import datetime
+import json
+import os
 
 app = Flask(__name__)
 app.secret_key = secrets.token_hex(32)
@@ -27,6 +29,18 @@ def init_db():
     conn.commit()
     conn.close()
 
+def load_quote_offset():
+    try:
+        with open('quote_offset.json', 'r') as f:
+            data = json.load(f)
+            return data.get('quote_offset', 0), data.get('last_access_date', None)
+    except (FileNotFoundError, json.JSONDecodeError):
+        return 0, None
+
+def save_quote_offset(offset, last_access_date):
+    with open('quote_offset.json', 'w') as f:
+        json.dump({'quote_offset': offset, 'last_access_date': last_access_date}, f)
+
 # Home route
 @app.route('/')
 def home():
@@ -42,17 +56,27 @@ def home():
     # "Resilience": Overcoming Adversity, Coping Strategies, and Stress Management
     # "Productivity": Time Management, Goal Setting, and Focus Techniques
 
-    # Initialize session offset if not present
-    if 'quote_offset' not in session:
-        session['quote_offset'] = 0
+    # Load quote_offset and last_access_date from the file
+    quote_offset, last_access_date = load_quote_offset()
+
+    today_str = date.today().isoformat()
+
+    # If the date has changed, reset the quote_offset
+    if last_access_date != today_str:
+        quote_offset = 0
+        last_access_date = today_str
+        save_quote_offset(quote_offset, last_access_date)
+    else:
+        # No need to save here if values haven't changed
+        pass
 
     quotes_data = []
     today = date.today()
     fixed_start_date = date(2024, 1, 1)  # Choose a fixed start date
     day_count = (today - fixed_start_date).days
 
-    # Adjust day_count with session offset
-    adjusted_day_count = day_count + session['quote_offset']
+    # Adjust day_count with quote_offset
+    adjusted_day_count = day_count + quote_offset
 
     for category in categories:
         # Fetch all quotes in the category, ordered by ID
@@ -83,10 +107,13 @@ def home():
 
 @app.route('/next_quotes')
 def next_quotes():
-    if 'quote_offset' in session:
-        session['quote_offset'] += 1
-    else:
-        session['quote_offset'] = 1
+    # Load the current quote_offset and last_access_date
+    quote_offset, last_access_date = load_quote_offset()
+    # Increment the quote_offset
+    quote_offset += 1
+    # Save the updated quote_offset
+    today_str = date.today().isoformat()
+    save_quote_offset(quote_offset, last_access_date)
     return redirect(url_for('home'))
 
 # Route to refresh quotes
