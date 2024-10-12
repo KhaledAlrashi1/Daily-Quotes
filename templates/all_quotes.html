@@ -4,17 +4,20 @@
 
 <div class="all-quotes-container">   
     <h1 class="my-4 text-center">All Quotes</h1>
-    <div class="text-center my-3 mb-5">
-        <div class="dropdown">
-            <button id="toggleCountsBtn" class="btn btn-secondary dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                Show Quote Counts
-            </button>
-            <div id="quoteCounts" class="dropdown-menu" aria-labelledby="toggleCountsBtn">
-                <!-- Counts will be inserted here -->
+        <div class="text-center my-3 mb-5">
+            <!-- "Show Quote Counts" Button -->
+            <div class="dropdown">
+                <button id="toggleCountsBtn" class="btn btn-secondary dropdown-toggle mt-3 mb-4" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Show Quote Counts
+                </button>
+                <div id="quoteCounts" class="dropdown-menu" aria-labelledby="toggleCountsBtn">
+                    <!-- Counts will be inserted here -->
+                </div>
             </div>
+            <!-- "Manage Categories" Button -->
+            <a href="{{ url_for('manage_categories') }}" class="btn btn-primary mb-3">Manage Categories</a>
         </div>
-    </div>
-    <div class="row mb-3">
+        <div class="row mb-3">
         <div class="col-md-6">
             <form method="get" action="{{ url_for('all_quotes') }}" class="form-inline">
                 <input type="hidden" name="category" value="{{ category_filter }}">
@@ -43,8 +46,7 @@
     </div>
     <div class="row">
         {% for quote in quotes %}
-            {% set category_index = categories.index(quote['category']) %}
-            {% set color = shades_of_green[category_index % shades_of_green|length] %}
+        {% set category_index = categories.index(quote['category']) if quote['category'] in categories else 0 %}            {% set color = shades_of_green[category_index % shades_of_green|length] %}
             {% set is_dark = (color == '#000000' or color == '#1b5e20') %}
             <div class="col-md-6 mb-4">
                 <div class="card h-100">

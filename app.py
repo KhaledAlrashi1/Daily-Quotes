@@ -16,6 +16,19 @@ def get_db_connection():
     conn.row_factory = sqlite3.Row
     return conn
 
+# def init_db():
+#     conn = get_db_connection()
+#     # Create the quotes table with a 'category' column
+#     conn.execute('''
+#         CREATE TABLE IF NOT EXISTS quotes (
+#             id INTEGER PRIMARY KEY AUTOINCREMENT,
+#             text TEXT NOT NULL,
+#             category TEXT NOT NULL
+#         )
+#     ''')
+#     conn.commit()
+#     conn.close()
+
 def init_db():
     conn = get_db_connection()
     # Create the quotes table with a 'category' column
@@ -26,8 +39,43 @@ def init_db():
             category TEXT NOT NULL
         )
     ''')
+    # Create the categories table
+    conn.execute('''
+        CREATE TABLE IF NOT EXISTS categories (
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            name TEXT NOT NULL UNIQUE
+        )
+    ''')
+    # Ensure the "Others" category exists
+    conn.execute('''
+        INSERT OR IGNORE INTO categories (name) VALUES (?)
+    ''', ("Others",))
     conn.commit()
     conn.close()
+
+""" 
+Exporting Your Quotes:
+1.	Open the SQLite Command-Line Interface:
+    sqlite3 quotes.db
+
+2. Export to CSV
+    a. .headers on
+    b. .mode csv
+    c. .output quotes_export.csv
+    d. SELECT * FROM quotes;
+    e. .quit
+"""
+
+"""
+Importing from CSV:
+1. Open the SQLite Command-Line Interface:
+    sqlite3 quotes.db
+
+2. 	Import the CSV Data:
+    a. .mode csv
+    b. .import quotes_export.csv quotes
+    c. .quit
+"""
 
 def load_quote_offset():
     try:
@@ -42,19 +90,74 @@ def save_quote_offset(offset, last_access_date):
         json.dump({'quote_offset': offset, 'last_access_date': last_access_date}, f)
 
 # Home route
+# @app.route('/')
+# def home():
+#     conn = get_db_connection()
+#     categories = [
+#         "Prayer", "Gratitude", "Happiness & Fulfilment", "Wisdom", "Human Gifts",
+#         "Love & Relationships", "Mental Health", "Diet", "Exercise", "Creativity",
+#         "Character", "Charisma", "Leadership", "Mastery", "Resilience",
+#         "Career", "Finance", "Networking", "Communication", "Productivity",
+#     ]
+
+#     # "Creativity": Innovation, Problem-solving, and Creative Thinking
+#     # "Resilience": Overcoming Adversity, Coping Strategies, and Stress Management
+#     # "Productivity": Time Management, Goal Setting, and Focus Techniques
+
+#     # Load quote_offset and last_access_date from the file
+#     quote_offset, last_access_date = load_quote_offset()
+
+#     today_str = date.today().isoformat()
+
+#     # If the date has changed, reset the quote_offset
+#     if last_access_date != today_str:
+#         quote_offset = 0
+#         last_access_date = today_str
+#         save_quote_offset(quote_offset, last_access_date)
+#     else:
+#         # No need to save here if values haven't changed
+#         pass
+
+#     quotes_data = []
+#     today = date.today()
+#     fixed_start_date = date(2024, 1, 1)  # Choose a fixed start date
+#     day_count = (today - fixed_start_date).days
+
+#     # Adjust day_count with quote_offset
+#     adjusted_day_count = day_count + quote_offset
+
+#     for category in categories:
+#         # Fetch all quotes in the category, ordered by ID
+#         quotes = conn.execute(
+#             'SELECT * FROM quotes WHERE category = ? ORDER BY id',
+#             (category,)
+#         ).fetchall()
+#         n = len(quotes)
+#         if n > 0:
+#             # Calculate the index based on the adjusted day count
+#             index = adjusted_day_count % n
+#             quote = quotes[index]
+#             quotes_data.append({'text': quote['text'], 'category': quote['category']})
+#         else:
+#             # No quotes in this category
+#             pass
+#     conn.close()
+
+#     shades_of_green = [
+#         "#66bb6a",  # Medium green
+#         "#4caf50",  # Slightly darker green
+#         "#388e3c",  # Dark green
+#         "#2e7d32",  # Darker green
+#         "#1b5e20",  # Very dark green
+#     ]
+
+#     return render_template('home.html', quotes=quotes_data, shades_of_green=shades_of_green)
+
 @app.route('/')
 def home():
     conn = get_db_connection()
-    categories = [
-        "Prayer", "Gratitude", "Happiness & Fulfilment", "Wisdom", "Human Gifts",
-        "Love & Relationships", "Mental Health", "Diet", "Exercise", "Creativity",
-        "Character", "Charisma", "Leadership", "Mastery", "Resilience",
-        "Career", "Finance", "Networking", "Communication", "Productivity",
-    ]
-
-    # "Creativity": Innovation, Problem-solving, and Creative Thinking
-    # "Resilience": Overcoming Adversity, Coping Strategies, and Stress Management
-    # "Productivity": Time Management, Goal Setting, and Focus Techniques
+    # Fetch categories from the database
+    categories = [row['name'] for row in conn.execute('SELECT name FROM categories').fetchall()]
 
     # Load quote_offset and last_access_date from the file
     quote_offset, last_access_date = load_quote_offset()
@@ -66,9 +169,6 @@ def home():
         quote_offset = 0
         last_access_date = today_str
         save_quote_offset(quote_offset, last_access_date)
-    else:
-        # No need to save here if values haven't changed
-        pass
 
     quotes_data = []
     today = date.today()
@@ -123,12 +223,9 @@ def refresh_quotes():
 
 @app.route('/add', methods=('GET', 'POST'))
 def add_quote():
-    categories = [
-        "Prayer", "Gratitude", "Happiness & Fulfilment", "Wisdom", "Human Gifts",
-        "Love & Relationships", "Mental Health", "Diet", "Exercise", "Creativity",
-        "Character", "Charisma", "Leadership", "Mastery", "Resilience",
-        "Career", "Finance", "Networking", "Communication", "Productivity",
-    ]
+    conn = get_db_connection()
+    categories = [row['name'] for row in conn.execute('SELECT name FROM categories').fetchall()]
+    conn.close()
     
     if request.method == 'POST':
         # Retrieve all quote inputs and categories from the form
@@ -139,6 +236,9 @@ def add_quote():
         categories_list = [category.strip() for category in categories_list if category.strip()]
         if quotes_list and categories_list and len(quotes_list) == len(categories_list):
             conn = get_db_connection()
+            # Insert new categories if they don't exist
+            for category in set(categories_list):
+                conn.execute('INSERT OR IGNORE INTO categories (name) VALUES (?)', (category,))
             # Prepare data for insertion
             data = [(quote, category) for quote, category in zip(quotes_list, categories_list)]
             conn.executemany('INSERT INTO quotes (text, category) VALUES (?, ?)', data)
@@ -158,18 +258,18 @@ def edit_quote(id):
         conn.close()
         flash('Quote not found.', 'danger')
         return redirect(url_for('home'))
-    
-    categories = [
-        "Prayer", "Gratitude", "Happiness & Fulfilment", "Wisdom", "Human Gifts",
-        "Love & Relationships", "Mental Health", "Diet", "Exercise", "Creativity",
-        "Character", "Charisma", "Leadership", "Mastery", "Resilience",
-        "Career", "Finance", "Networking", "Communication", "Productivity",
-    ]
+
+    categories = [row['name'] for row in conn.execute('SELECT name FROM categories').fetchall()]
+    conn.close()
 
     if request.method == 'POST':
         quote_text = request.form['quote']
         category = request.form['category']
         if quote_text and category:
+            if category not in categories:
+                flash('Invalid category selected.', 'danger')
+                return redirect(url_for('edit_quote', id=id))
+            conn = get_db_connection()
             conn.execute('UPDATE quotes SET text = ?, category = ? WHERE id = ?', (quote_text, category, id))
             conn.commit()
             conn.close()
@@ -178,8 +278,8 @@ def edit_quote(id):
         else:
             flash('Please enter the quote and select a category.', 'danger')
 
-    conn.close()
     return render_template('edit_quote.html', quote=quote, categories=categories)
+
 
 @app.route('/delete/<int:id>', methods=('POST',))
 def delete_quote(id):
@@ -200,12 +300,7 @@ def all_quotes():
 
     conn = get_db_connection()
 
-    categories = [
-        "Prayer", "Gratitude", "Happiness & Fulfilment", "Wisdom", "Human Gifts",
-        "Love & Relationships", "Mental Health", "Diet", "Exercise", "Creativity",
-        "Character", "Charisma", "Leadership", "Mastery", "Resilience",
-        "Career", "Finance", "Networking", "Communication", "Productivity",
-    ]
+    categories = [row['name'] for row in conn.execute('SELECT name FROM categories').fetchall()]
 
     # Build the query based on the category filter
     if category_filter and category_filter in categories:
@@ -215,7 +310,6 @@ def all_quotes():
             (category_filter, per_page, (page - 1) * per_page)
         ).fetchall()
 
-        # Add the missing total_pages calculation for category filtering
         total_pages = (total_quotes + per_page - 1) // per_page
 
     else:
@@ -297,6 +391,108 @@ def quote_counts():
 @app.context_processor
 def inject_current_year():
     return {'current_year': datetime.utcnow().year}
+
+@app.route('/categories', methods=['GET', 'POST'])
+def manage_categories():
+    conn = get_db_connection()
+    if request.method == 'POST':
+        # Handle adding a new category
+        category_name = request.form.get('category_name').strip()
+        quote_text = request.form.get('quote_text').strip()
+        if category_name and quote_text:
+            try:
+                # Insert the new category
+                conn.execute('INSERT INTO categories (name) VALUES (?)', (category_name,))
+                # Insert the new quote with the new category
+                conn.execute('INSERT INTO quotes (text, category) VALUES (?, ?)', (quote_text, category_name))
+                conn.commit()
+                flash('Category and quote added successfully!', 'success')
+            except sqlite3.IntegrityError:
+                flash('Category already exists.', 'danger')
+            conn.close()
+            return redirect(url_for('manage_categories'))
+        else:
+            flash('Please enter both category name and at least one quote.', 'danger')
+            conn.close()
+            return redirect(url_for('manage_categories'))
+    else:
+        # Display the list of categories
+        categories = conn.execute('SELECT * FROM categories').fetchall()
+        conn.close()
+        return render_template('categories.html', categories=categories)
+
+@app.route('/edit_category/<int:id>', methods=['GET', 'POST'])
+def edit_category(id):
+    conn = get_db_connection()
+    category = conn.execute('SELECT * FROM categories WHERE id = ?', (id,)).fetchone()
+    if not category:
+        conn.close()
+        flash('Category not found.', 'danger')
+        return redirect(url_for('manage_categories'))
+
+    if request.method == 'POST':
+        new_name = request.form.get('category_name').strip()
+        if new_name:
+            try:
+                # Update the category name in categories table
+                conn.execute('UPDATE categories SET name = ? WHERE id = ?', (new_name, id))
+                # Update the category name in quotes table
+                conn.execute('UPDATE quotes SET category = ? WHERE category = ?', (new_name, category['name']))
+                conn.commit()
+                flash('Category updated successfully!', 'success')
+            except sqlite3.IntegrityError:
+                flash('Category name already exists.', 'danger')
+            conn.close()
+            return redirect(url_for('manage_categories'))
+        else:
+            flash('Please enter a category name.', 'danger')
+    conn.close()
+    return render_template('edit_category.html', category=category)
+
+@app.route('/delete_category/<int:id>', methods=['GET', 'POST'])
+def delete_category(id):
+    conn = get_db_connection()
+    category = conn.execute('SELECT * FROM categories WHERE id = ?', (id,)).fetchone()
+    if not category:
+        conn.close()
+        flash('Category not found.', 'danger')
+        return redirect(url_for('manage_categories'))
+
+    if category['name'] == 'Others':
+        flash('Cannot delete the "Others" category.', 'danger')
+        conn.close()
+        return redirect(url_for('manage_categories'))
+
+    if request.method == 'POST':
+        action = request.form.get('action')
+        if action == 'transfer':
+            # Transfer quotes to "Others"
+            conn.execute('UPDATE quotes SET category = ? WHERE category = ?', ('Others', category['name']))
+            # Delete the category
+            conn.execute('DELETE FROM categories WHERE id = ?', (id,))
+            conn.commit()
+            flash('Category deleted and quotes transferred to "Others".', 'success')
+        elif action == 'delete':
+            # Delete the quotes
+            conn.execute('DELETE FROM quotes WHERE category = ?', (category['name'],))
+            # Delete the category
+            conn.execute('DELETE FROM categories WHERE id = ?', (id,))
+            conn.commit()
+            flash('Category and associated quotes deleted.', 'success')
+        else:
+            flash('Invalid action.', 'danger')
+        conn.close()
+        return redirect(url_for('manage_categories'))
+
+    conn.close()
+    return render_template('delete_category.html', category=category)
+
+@app.template_global()
+def get_quote_count(category_name):
+    conn = get_db_connection()
+    count = conn.execute('SELECT COUNT(*) FROM quotes WHERE category = ?', (category_name,)).fetchone()[0]
+    conn.close()
+    return count
 
 if __name__ == '__main__':
     init_db()
