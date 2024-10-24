@@ -16,19 +16,6 @@ def get_db_connection():
     conn.row_factory = sqlite3.Row
     return conn
 
-# def init_db():
-#     conn = get_db_connection()
-#     # Create the quotes table with a 'category' column
-#     conn.execute('''
-#         CREATE TABLE IF NOT EXISTS quotes (
-#             id INTEGER PRIMARY KEY AUTOINCREMENT,
-#             text TEXT NOT NULL,
-#             category TEXT NOT NULL
-#         )
-#     ''')
-#     conn.commit()
-#     conn.close()
-
 def init_db():
     conn = get_db_connection()
     # Create the quotes table with a 'category' column
@@ -39,19 +26,32 @@ def init_db():
             category TEXT NOT NULL
         )
     ''')
-    # Create the categories table
+
+    # Create the categories table with an 'order' column
     conn.execute('''
         CREATE TABLE IF NOT EXISTS categories (
             id INTEGER PRIMARY KEY AUTOINCREMENT,
-            name TEXT NOT NULL UNIQUE
+            name TEXT NOT NULL UNIQUE,
+            "order" INTEGER
         )
     ''')
+
     # Ensure the "Others" category exists
     conn.execute('''
         INSERT OR IGNORE INTO categories (name) VALUES (?)
     ''', ("Others",))
+
+    # Check if 'order' column exists in 'categories' table
+    cursor = conn.execute("PRAGMA table_info(categories)")
+    columns = [column[1] for column in cursor.fetchall()]
+    if 'order' not in columns:
+        conn.execute('ALTER TABLE categories ADD COLUMN "order" INTEGER')
+        # Initialize order values
+        conn.execute('UPDATE categories SET "order" = id')
+    
     conn.commit()
     conn.close()
+
 
 """ 
 Exporting Your Quotes:
@@ -89,75 +89,12 @@ def save_quote_offset(offset, last_access_date):
     with open('quote_offset.json', 'w') as f:
         json.dump({'quote_offset': offset, 'last_access_date': last_access_date}, f)
 
-# Home route
-# @app.route('/')
-# def home():
-#     conn = get_db_connection()
-#     categories = [
-#         "Prayer", "Gratitude", "Happiness & Fulfilment", "Wisdom", "Human Gifts",
-#         "Love & Relationships", "Mental Health", "Diet", "Exercise", "Creativity",
-#         "Character", "Charisma", "Leadership", "Mastery", "Resilience",
-#         "Career", "Finance", "Networking", "Communication", "Productivity",
-#     ]
-
-#     # "Creativity": Innovation, Problem-solving, and Creative Thinking
-#     # "Resilience": Overcoming Adversity, Coping Strategies, and Stress Management
-#     # "Productivity": Time Management, Goal Setting, and Focus Techniques
-
-#     # Load quote_offset and last_access_date from the file
-#     quote_offset, last_access_date = load_quote_offset()
-
-#     today_str = date.today().isoformat()
-
-#     # If the date has changed, reset the quote_offset
-#     if last_access_date != today_str:
-#         quote_offset = 0
-#         last_access_date = today_str
-#         save_quote_offset(quote_offset, last_access_date)
-#     else:
-#         # No need to save here if values haven't changed
-#         pass
-
-#     quotes_data = []
-#     today = date.today()
-#     fixed_start_date = date(2024, 1, 1)  # Choose a fixed start date
-#     day_count = (today - fixed_start_date).days
-
-#     # Adjust day_count with quote_offset
-#     adjusted_day_count = day_count + quote_offset
-
-#     for category in categories:
-#         # Fetch all quotes in the category, ordered by ID
-#         quotes = conn.execute(
-#             'SELECT * FROM quotes WHERE category = ? ORDER BY id',
-#             (category,)
-#         ).fetchall()
-#         n = len(quotes)
-#         if n > 0:
-#             # Calculate the index based on the adjusted day count
-#             index = adjusted_day_count % n
-#             quote = quotes[index]
-#             quotes_data.append({'text': quote['text'], 'category': quote['category']})
-#         else:
-#             # No quotes in this category
-#             pass
-#     conn.close()
-
-#     shades_of_green = [
-#         "#66bb6a",  # Medium green
-#         "#4caf50",  # Slightly darker green
-#         "#388e3c",  # Dark green
-#         "#2e7d32",  # Darker green
-#         "#1b5e20",  # Very dark green
-#     ]
-
-#     return render_template('home.html', quotes=quotes_data, shades_of_green=shades_of_green)
 
 @app.route('/')
 def home():
     conn = get_db_connection()
     # Fetch categories from the database
-    categories = [row['name'] for row in conn.execute('SELECT name FROM categories').fetchall()]
+    categories = [row['name'] for row in conn.execute('SELECT name FROM categories ORDER BY "order" ASC').fetchall()]
 
     # Load quote_offset and last_access_date from the file
     quote_offset, last_access_date = load_quote_offset()
@@ -166,17 +103,12 @@ def home():
 
     # If the date has changed, reset the quote_offset
     if last_access_date != today_str:
-        quote_offset = 0
+        quote_offset += 1
         last_access_date = today_str
         save_quote_offset(quote_offset, last_access_date)
 
     quotes_data = []
-    today = date.today()
-    fixed_start_date = date(2024, 1, 1)  # Choose a fixed start date
-    day_count = (today - fixed_start_date).days
-
-    # Adjust day_count with quote_offset
-    adjusted_day_count = day_count + quote_offset
+    adjusted_day_count = quote_offset
 
     for category in categories:
         # Fetch all quotes in the category, ordered by ID
@@ -211,8 +143,8 @@ def next_quotes():
     quote_offset, last_access_date = load_quote_offset()
     # Increment the quote_offset
     quote_offset += 1
-    # Save the updated quote_offset
-    today_str = date.today().isoformat()
+    # # Save the updated quote_offset
+    # today_str = date.today().isoformat()
     save_quote_offset(quote_offset, last_access_date)
     return redirect(url_for('home'))
 
@@ -396,31 +328,47 @@ def inject_current_year():
 def manage_categories():
     conn = get_db_connection()
     if request.method == 'POST':
-        # Handle adding a new category
-        category_name = request.form.get('category_name').strip()
-        quote_text = request.form.get('quote_text').strip()
-        if category_name and quote_text:
-            try:
-                # Insert the new category
-                conn.execute('INSERT INTO categories (name) VALUES (?)', (category_name,))
-                # Insert the new quote with the new category
-                conn.execute('INSERT INTO quotes (text, category) VALUES (?, ?)', (quote_text, category_name))
-                conn.commit()
-                flash('Category and quote added successfully!', 'success')
-            except sqlite3.IntegrityError:
-                flash('Category already exists.', 'danger')
+        if 'update_order' in request.form:
+            # Handle updating the order of categories
+            orders = request.form.getlist('order')
+            ids = request.form.getlist('id')
+            for id, order in zip(ids, orders):
+                conn.execute('UPDATE categories SET "order" = ? WHERE id = ?', (int(order), int(id)))
+            conn.commit()
+            flash('Category order updated successfully!', 'success')
             conn.close()
             return redirect(url_for('manage_categories'))
-        else:
-            flash('Please enter both category name and at least one quote.', 'danger')
-            conn.close()
-            return redirect(url_for('manage_categories'))
+        elif 'add_category' in request.form:
+            # Handle adding a new category
+            category_name = request.form.get('category_name').strip()
+            quote_text = request.form.get('quote_text').strip()
+            if category_name and quote_text:
+                try:
+                    # Determine the next order value
+                    max_order = conn.execute('SELECT MAX("order") FROM categories').fetchone()[0]
+                    if max_order is None:
+                        max_order = 0
+                    next_order = max_order + 1
+                    # Insert the new category with the next order value
+                    conn.execute('INSERT INTO categories (name, "order") VALUES (?, ?)', (category_name, next_order))
+                    # Insert the new quote with the new category
+                    conn.execute('INSERT INTO quotes (text, category) VALUES (?, ?)', (quote_text, category_name))
+                    conn.commit()
+                    flash('Category and quote added successfully!', 'success')
+                except sqlite3.IntegrityError:
+                    flash('Category already exists.', 'danger')
+                conn.close()
+                return redirect(url_for('manage_categories'))
+            else:
+                flash('Please enter both category name and at least one quote.', 'danger')
+                conn.close()
+                return redirect(url_for('manage_categories'))
     else:
-        # Display the list of categories
-        categories = conn.execute('SELECT * FROM categories').fetchall()
+        # Display the list of categories ordered by 'order'
+        categories = conn.execute('SELECT * FROM categories ORDER BY "order" ASC').fetchall()
         conn.close()
         return render_template('categories.html', categories=categories)
-
+    
 @app.route('/edit_category/<int:id>', methods=['GET', 'POST'])
 def edit_category(id):
     conn = get_db_connection()
