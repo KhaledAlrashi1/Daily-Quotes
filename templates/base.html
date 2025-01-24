@@ -21,7 +21,7 @@
     <!-- Navbar -->
     <nav class="navbar navbar-expand-lg navbar-dark fixed-top transparent-nav">
         <div class="container">
-            <a class="navbar-brand" href="{{ url_for('home') }}">Daily Quotes</a>
+            <a class="navbar-brand" href="{{ url_for('quotes.home') }}">Daily Quotes</a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
                 aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
@@ -29,13 +29,13 @@
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav ml-auto">
                      <li class="nav-item {% if request.endpoint == 'home' %}active{% endif %}">
-                        <a class="nav-link" href="{{ url_for('home') }}">Home</a>
+                        <a class="nav-link" href="{{ url_for('quotes.home') }}">Home</a>
                     </li>
-                     <li class="nav-item {% if request.endpoint == 'add_quote' %}active{% endif %}">
-                        <a class="nav-link" href="{{ url_for('add_quote') }}">Add Quote(s)</a>
+                     <li class="nav-item {% if request.endpoint == 'quotes.add_quote' %}active{% endif %}">
+                        <a class="nav-link" href="{{ url_for('quotes.add_quote') }}">Add Quote(s)</a>
                     </li>
-                    <li class="nav-item {% if request.endpoint == 'all_quotes' %}active{% endif %}">
-                        <a class="nav-link" href="{{ url_for('all_quotes') }}">All Quotes</a>
+                    <li class="nav-item {% if request.endpoint == 'quotes.all_quotes' %}active{% endif %}">
+                        <a class="nav-link" href="{{ url_for('quotes.all_quotes') }}">All Quotes</a>
                     </li>
                 </ul>
             </div>
@@ -48,8 +48,8 @@
         <div class="container text-center text-white hero-content">
             <h1 class="display-4 animate__animated animate__fadeInDown">Inspire Yourself Daily</h1>
             <p class="lead animate__animated animate__fadeInUp animate__delay-1s">Curated quotes for personal growth and development.</p>
-            <a href="{{ url_for('add_quote') }}" class="btn btn-primary btn-lg mt-4 mr-2 animate__animated animate__fadeInUp animate__delay-2s">Add Your Own Quotes</a>
-            <a id="hero-last-element" href="{{ url_for('all_quotes') }}" class="btn btn-outline-light btn-lg mt-4 animate__animated animate__fadeInUp animate__delay-2s">Explore All Quotes</a>
+            <a href="{{ url_for('quotes.add_quote') }}" class="btn btn-primary btn-lg mt-4 mr-2 animate__animated animate__fadeInUp animate__delay-2s">Add Your Own Quotes</a>
+            <a id="hero-last-element" href="{{ url_for('quotes.all_quotes') }}" class="btn btn-outline-light btn-lg mt-4 animate__animated animate__fadeInUp animate__delay-2s">Explore All Quotes</a>
         </div>
         <div class="scroll-indicator">
             <span></span>
@@ -79,9 +79,9 @@
         <div class="container text-center">
             <p>&copy; {{ current_year }} Daily Quotes. All rights reserved.</p>
             <div class="footer-links">
-                <a href="{{ url_for('home') }}" class="text-white">Home</a> |
-                <a href="{{ url_for('add_quote') }}" class="text-white">Add Quote(s)</a> |
-                <a href="{{ url_for('all_quotes') }}" class="text-white">All Quotes</a>
+                <a href="{{ url_for('quotes.home') }}" class="text-white">Home</a> |
+                <a href="{{ url_for('quotes.add_quote') }}" class="text-white">Add Quote(s)</a> |
+                <a href="{{ url_for('quotes.all_quotes') }}" class="text-white">All Quotes</a>
             </div>
         </div>
     </footer>

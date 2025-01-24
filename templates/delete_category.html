@@ -6,10 +6,10 @@
     <h6 class="text-left text-white">Are you sure you want to delete the category "<strong>{{ category['name'] }}</strong>"?</h6>
     <h6 class="text-left text-white">You can choose to transfer all quotes in this category to "Others" or delete the category and all associated quotes.</h6>
 
-    <form method="post" action="{{ url_for('delete_category', id=category['id']) }}">
+    <form method="post" action="{{ url_for('categories.delete_category', id=category['id']) }}">
         <button type="submit" name="action" value="transfer" class="btn btn-warning mr-3">Transfer Quotes to "Others"</button>
         <button type="submit" name="action" value="delete" class="btn btn-danger mr-3">Delete Category and Quotes</button>
-        <a href="{{ url_for('manage_categories') }}" class="btn btn-secondary">Cancel</a>
+        <a href="{{ url_for('categories.manage_categories') }}" class="btn btn-secondary">Cancel</a>
     </form>
 </div>
 {% endblock %}

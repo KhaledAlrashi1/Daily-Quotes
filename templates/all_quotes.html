@@ -15,11 +15,11 @@
                 </div>
             </div>
             <!-- "Manage Categories" Button -->
-            <a href="{{ url_for('manage_categories') }}" class="btn btn-primary mb-3">Manage Categories</a>
+            <a href="{{ url_for('categories.manage_categories') }}" class="btn btn-primary mb-3">Manage Categories</a>
         </div>
         <div class="row mb-3">
         <div class="col-md-6">
-            <form method="get" action="{{ url_for('all_quotes') }}" class="form-inline">
+            <form method="get" action="{{ url_for('quotes.all_quotes') }}" class="form-inline">
                 <input type="hidden" name="category" value="{{ category_filter }}">
                 <label for="per_page" class="mr-2">Quotes per page:</label>
                 <select name="per_page" id="per_page" class="form-control mr-2" onchange="this.form.submit()">
@@ -31,7 +31,7 @@
             </form>
         </div>
         <div class="col-md-6 text-right">
-            <form method="get" action="{{ url_for('all_quotes') }}" class="form-inline">
+            <form method="get" action="{{ url_for('quotes.all_quotes') }}" class="form-inline">
                 <input type="hidden" xname="per_page" value="{{ per_page }}">
                 <label for="category_filter" class="mr-2">Filter by Category:</label>
                 <select name="category" id="category_filter" class="form-control mr-2" onchange="this.form.submit()">
@@ -56,8 +56,8 @@
                         </span>
                         <p class="card-text">"{{ quote['text'] }}"</p>
                         <div class="quote-actions mt-3">
-                            <a href="{{ url_for('edit_quote', id=quote['id']) }}" class="btn btn-sm btn-outline-primary">Edit</a>
-                            <form action="{{ url_for('delete_quote', id=quote['id']) }}" method="post" style="display:inline;" onsubmit="return confirmDelete();">
+                            <a href="{{ url_for('quotes.edit_quote', id=quote['id']) }}" class="btn btn-sm btn-outline-primary">Edit</a>
+                            <form action="{{ url_for('quotes.delete_quote', id=quote['id']) }}" method="post" style="display:inline;" onsubmit="return confirmDelete();">
                                 <button type="submit" class="btn btn-sm btn-outline-danger">Delete</button>
                             </form>
                         </div>
@@ -71,16 +71,10 @@
         <ul class="pagination justify-content-center">
             <!-- First and Previous Page Links -->
             {% if page > 1 %}
-                <!-- <li class="page-item">
-                    <a class="page-link" href="{{ url_for('all_quotes', page=1, per_page=per_page, category=category_filter) }}">First</a>
-                </li> -->
                 <li class="page-item">
-                    <a class="page-link" href="{{ url_for('all_quotes', page=page-1, per_page=per_page, category=category_filter) }}">Previous</a>
+                    <a class="page-link" href="{{ url_for('quotes.all_quotes', page=page-1, per_page=per_page, category=category_filter) }}">Previous</a>
                 </li>
             {% else %}
-                <!-- <li class="page-item disabled">
-                    <span class="page-link">First</span>
-                </li> -->
                 <li class="page-item disabled">
                     <span class="page-link">Previous</span>
                 </li>
@@ -96,7 +90,7 @@
                     </li>
                 {% else %}
                     <li class="page-item">
-                        <a class="page-link" href="{{ url_for('all_quotes', page=p, per_page=per_page, category=category_filter) }}">{{ p }}</a>
+                        <a class="page-link" href="{{ url_for('quotes.all_quotes', page=p, per_page=per_page, category=category_filter) }}">{{ p }}</a>
                     </li>
                 {% endif %}
             {% endfor %}
@@ -104,18 +98,12 @@
             <!-- Next and Last Page Links -->
             {% if page < total_pages %}
                 <li class="page-item">
-                    <a class="page-link" href="{{ url_for('all_quotes', page=page+1, per_page=per_page, category=category_filter) }}">Next</a>
+                    <a class="page-link" href="{{ url_for('quotes.all_quotes', page=page+1, per_page=per_page, category=category_filter) }}">Next</a>
                 </li>
-                <!-- <li class="page-item">
-                    <a class="page-link" href="{{ url_for('all_quotes', page=total_pages, per_page=per_page, category=category_filter) }}">Last</a>
-                </li> -->
             {% else %}
                 <li class="page-item disabled">
                     <span class="page-link">Next</span>
                 </li>
-                <!-- <li class="page-item disabled">
-                    <span class="page-link">Last</span>
-                </li> -->
             {% endif %}
         </ul>
     </nav>
@@ -130,7 +118,7 @@
         toggleBtn.addEventListener('click', function() {
             if (!countsLoaded) {
                 // Fetch counts from the server
-                fetch('{{ url_for("quote_counts") }}')
+                fetch('{{ url_for("quotes.quote_counts") }}')
                     .then(response => response.json())
                     .then(data => {
                         // Build the HTML content
