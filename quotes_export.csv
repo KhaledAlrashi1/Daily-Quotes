@@ -1,70 +1,41 @@
 id,text,category
 1,"The best way to predict the future is to invent it.",Leadership
-2,"Life is 10% what happens to us and 90% how we react to it.","Mental Health"
 3,"An unexamined life is not worth living.","Happiness & Fulfilment"
-4,"Eighty percent of success is showing up.",Resilience
+4,"Eighty percent of success is showing up.",Character
 5,"Your time is limited, so don't waste it living someone else's life.","Happiness & Fulfilment"
 6,"When you tolerate an error, you rob yourself of learning. When you ruminate on an error, you rob yourself of happiness. Notice it, improve it, and move on from it.",Wisdom
-7,"You need to accept as much responsibility as you can tolerate and then build yourself into people who can tolerate even more responsibility. And to accept that gratefully because that’s where the purpose and meaning in life is.",Resilience
+7,"You need to accept as much responsibility as you can tolerate and then build yourself into people who can tolerate even more responsibility. And to accept that gratefully because that’s where the purpose and meaning in life is.",Character
 8,"You can ignore your weaknesses, but you can't expect them to not impact you. The weakness of the coach shapes the players. The weakness of the teacher influences the students. The weakness of the parent molds the child.",Character
-10,"I am always doing what I can't do yet in order to learn how to do it. (Painter Vincent Van Gogh on pushing yourself)",Mastery
+10,"I am always doing what I can't do yet in order to learn how to do it. (Painter Vincent Van Gogh on pushing yourself)",Others
 11,"In a world where intelligence is hyper-competitive and many previous technical skills have become automated, competitive advantages tilt toward nuanced and soft skills – like communication, empathy, and, perhaps most of all, flexibility.",Career
 12,"Savings can be created by spending less. You can spend less if you desire less. And you will desire less if you care less about what others think of you.",Finance
 16,"Miss a meal but never miss reading a book.",Character
 18,"The limits of my language mean the limits of my world.",Character
 19,"You only attract who you are.",Character
-20,"The 10,000 hours rule – ‘the neurons that fire together wire together.’ You get better at anything you attentively practice.",Mastery
+20,"The 10,000 hours rule – ‘the neurons that fire together wire together.’ You get better at anything you attentively practice.",Others
 22,"Savings without a spending goal gives you options and flexibility, the ability to wait and the opportunity to pounce. It gives you time to think. It lets you change course on your own terms.",Finance
 23,"Savings can be created by spending less. You can spend less if you desire less. And you will desire less if you care less about what others think of you.",Finance
 24,"The most powerful way to increase your savings isn't to raise your income. It’s to raise your humility.",Finance
-25,"The bad workouts are the most important ones. It's easy to train when you feel good, but it's crucial to show up when you don't feel like it—even if you do less than you hope. 
-
-Going to the gym for 15 minutes might not improve your performance, but it reaffirms your identity. It's not always about what happens during the workout. It's about becoming the type of person who doesn't miss workouts.",Exercise
 26,"In many cases, what you hope to learn by reading books or listening to podcasts can only be learned by attempting what you fear. Some knowledge is only revealed through action.",Character
 27,"And once the storm is over, you won't remember how you made it through, how you managed to survive. You won't even be sure whether the storm is really over. But one thing is certain. When you come out of the storm, you won't be the same person who walked in. That's what this storm's all about.",Character
 28,"There is no safe investment. To love at all is to be vulnerable. Love anything, and your heart will certainly be wrung and possibly be broken. If you want to make sure of keeping it intact, you must give your heart to no one, not even to an animal. Wrap it carefully round with hobbies and little luxuries; avoid all entanglements; lock it up safe in the casket or coffin of your selfishness. But in that casket—safe, dark, motionless, air-less—it will change. It will not be broken; it will become unbreakable, impenetrable, irredeemable. The alternative to tragedy, or at least to the risk of tragedy, is damnation. The only place outside Heaven where you can be perfectly safe from all the dangers and perturbations of love is Hell.","Love & Relationships"
-29,"Someday, in years to come, you will be wrestling with the great temptation, or trembling under the great sorrow of your life. But the real struggle is here, now, in these quiet weeks. Now it is being decided whether, in the day of your supreme sorrow or temptation, you shall miserably fail or gloriously conquer",Resilience
+29,"Someday, in years to come, you will be wrestling with the great temptation, or trembling under the great sorrow of your life. But the real struggle is here, now, in these quiet weeks. Now it is being decided whether, in the day of your supreme sorrow or temptation, you shall miserably fail or gloriously conquer",Character
 30,"Communication is about what is received, not what is intended. If there is a gap between what you are saying and what they are hearing, you have to find a new way to say it.",Communication
-31,"Finding your way in life is like unlocking the combination of a safe. You have to go forwards and backwards. Life is not a direct march from A to B. The twists and turns are progress, not regression. What feels like a setback in the moment is later revealed to have been part of the path all along. Each move was necessary to get to your end goal.",Resilience
+31,"Finding your way in life is like unlocking the combination of a safe. You have to go forwards and backwards. Life is not a direct march from A to B. The twists and turns are progress, not regression. What feels like a setback in the moment is later revealed to have been part of the path all along. Each move was necessary to get to your end goal.",Character
 32,"If you can bite, you generally don’t have to. When skillfully integrated, the ability to respond with aggression and violence decreases rather than increases the probability that actual aggression will be necessary. There is very little difference between the capacity for mayhem and destruction, integrated, and strength of character. This is one of the most difficult lessons of life.",Character
-33,"Mastery requires lots of practice. But the more you practice something, the more boring and routine it becomes. Thus, an essential component of mastery is the ability to maintain your enthusiasm. The master continues to find the fundamentals interesting.",Mastery
-34,"Gargantuan results are much less about your inherited genetics and far more about your daily habits. And your morning ritual is by far the most essential one to calibrate. And then automate.",Mastery
+33,"Mastery requires lots of practice. But the more you practice something, the more boring and routine it becomes. Thus, an essential component of mastery is the ability to maintain your enthusiasm. The master continues to find the fundamentals interesting.",Others
+34,"Gargantuan results are much less about your inherited genetics and far more about your daily habits. And your morning ritual is by far the most essential one to calibrate. And then automate.",Others
 35,"Become a bigger person and you’ll also automatically become a better leader – and a great producer.",Leadership
-36,"One who sweats more in training, bleeds less in war.",Mastery
-37,"Pain is the doorway into deep. Know what I mean? And tragedy is nature’s great purifier. It burns away the fakeness, fear, and arrogance that is of the ego. Return us to our brilliance and genius, if you have the courage to go into that which wounds you. Suffering yields many rewards, including empathy, originality, relatability, and authenticity.",Resilience
+36,"One who sweats more in training, bleeds less in war.",Others
+37,"Pain is the doorway into deep. Know what I mean? And tragedy is nature’s great purifier. It burns away the fakeness, fear, and arrogance that is of the ego. Return us to our brilliance and genius, if you have the courage to go into that which wounds you. Suffering yields many rewards, including empathy, originality, relatability, and authenticity.",Character
 38,"Life rewards action, not intelligence. Many brilliant people talk themselves out of getting started, and being smart doesn't help very much without the courage to act. You can't win if you're not in the game.",Productivity
 39,"You can't do everything, but you can do one thing and then another and another. In terms of energy, it's better to make a wrong choice than none at all. You might begin by listing your priorities—for the day, for the week, for the month, for a lifetime. Start modestly. List everything you want to do today or tomorrow. Set priorities by dividing the items into A, B, and C categories. At the least, accomplish the A items. Try the same thing with long-term goals. Priorities do shift, and you can change them at any time, but simply getting them down in black and white adds clarity to your life, and clarity creates energy.",Productivity
 40,"It is amateurs who have one big bright, beautiful idea that they can never abandon. Professionals know that they have to produce theory after theory before they are likely to hit the jackpot.",Creativity
 41,"Don't wait to start writing until you have something to say. Start writing so you can find out what you have to say. 
 Your first idea is rarely your best idea. It can take a lot of reps before you discover something worth keeping.",Creativity
 42,"No one said that to be happy, you should try to work as hard as you can to make money to buy the things you want. Or it’s important to be at least as wealthy as the people around you, and if you have more than they do, it’s real success. Or you should choose your work based on your desired future earning power. What they did value were things like quality friendships, being part of something bigger than themselves, and spending unstructured time with their children.","Happiness & Fulfilment"
-43,"When asked about his silence during meetings, Rockefeller often recited a poem:
-A wise old owl lived in an oak, -- 
-The more he saw the less he spoke -- 
-The less he spoke, the more he heard -- 
-Why aren’t we all like that wise old bird?",Charisma
 44,"We only hear what we’re ready to hear. All learning meets us exactly where we’re at. And as we grow greater, we understand better.",Character
 45,"You become what you pay attention to.",Character
-46,"Track your calories; what gets measured, gets improved.",Diet
-47,"Don’t cut carbs; they’re essential fuel for performance.",Diet
-48,"Stay in a calorie deficit to lose fat; it’s the foundation of fat loss.",Diet
-49,"Choose whole foods over processed options for better nutrition.",Diet
-50,"Hydrate well—drink water before meals.",Diet
-51,"Focus on fiber-rich foods to stay full longer.",Diet
-52,"Eat 20%-30% of your calories from healthy fats for hormone balance.",Diet
-53,"Reduce unnecessary stress to prevent emotional eating.",Diet
-54,"Prioritize protein intake—aim for 1.5g per kg of body weight.",Diet
-55,"Use a calorie-tracking app to stay consistent.",Diet
-56,"Pair cardio with strength training to boost overall fitness.",Exercise
-57,"Warm up properly to avoid injuries.",Exercise
-58,"Aim for consistency over perfection in your workouts.",Exercise
-59,"Rest and recover to build strength and muscle.",Exercise
-60,"Focus on progressive overload—add more reps or weight each week.",Exercise
-61,"Keep a record of your sets and reps to track progress.",Exercise
-62,"Stretch after workouts to maintain flexibility.",Exercise
-63,"Incorporate compound lifts like squats and deadlifts for overall strength.",Exercise
-64,"Incorporate cardio for increased calorie burn and heart health.",Exercise
-65,"Challenge yourself with new exercises regularly.",Exercise
 66,"God, grant me the serenity to accept the things I cannot change, courage to change the things I can, and wisdom to know the difference.",Prayer
 67,"Lord, make me an instrument of Your peace. Where there is hatred, let me sow love; where there is injury, pardon; where there is doubt, faith; where there is despair, hope; where there is darkness, light; and where there is sadness, joy.",Prayer
 68,"God, to whom we turn for guidance, be with us always. Grant us strength, the spirit of sacrifice, and the will to do what is right. Let us walk on the path of righteousness and find peace.",Prayer
@@ -87,16 +58,11 @@ Why aren’t we all like that wise old bird?",Charisma
 85,"Gratitude is a magnet for miracles. Attract more into your life by actively showing your appreciation every day.",Gratitude
 86,"Turn your gratitude into generosity. Let your thankfulness inspire you to give more, love more, and live more fully.",Gratitude
 87,"Gratitude is a practice, not a feeling. Make a habit of showing thanks in everything you do.",Gratitude
-88,"Anything that’s human is mentionable, and anything that is mentionable can be more manageable. When we can talk about our feelings, they become less overwhelming, less upsetting, and less scary.","Mental Health"
-89,"You are not your illness. You have an individual story to tell. You have a name, a history, a personality. Staying yourself is part of the battle.","Mental Health"
-90,"Mental health is not a destination but a process. It’s about how you drive, not where you’re going.","Mental Health"
-91,"You don’t have to control your thoughts. You just have to stop letting them control you.","Mental Health"
-92,"You are not a burden. You have a story to tell, and there’s a person who needs to hear it.","Mental Health"
-93,"The greatest weapon against stress is our ability to choose one thought over another.","Mental Health"
-94,"You, yourself, as much as anybody in the entire universe, deserve your love and affection – Buddha.","Mental Health"
-95,"Feelings are just visitors. Let them come and go.","Mental Health"
-96,"There is hope, even when your brain tells you there isn’t.","Mental Health"
-97,"Sometimes the people around you won’t understand your journey. They don’t need to; it’s not for them.","Mental Health"
+88,"Anything that’s human is mentionable, and anything that is mentionable can be more manageable. When we can talk about our feelings, they become less overwhelming, less upsetting, and less scary.",Health
+89,"You are not your illness. You have an individual story to tell. You have a name, a history, a personality. Staying yourself is part of the battle.",Health
+90,"Mental health is not a destination but a process. It’s about how you drive, not where you’re going.",Health
+92,"You are not a burden. You have a story to tell, and there’s a person who needs to hear it.",Health
+96,"There is hope, even when your brain tells you there isn’t.",Health
 98,"The future depends on what you do today. – Mahatma Gandhi",Career
 99,"Success usually comes to those who are too busy to be looking for it.",Career
 100,"The only way to do great work is to love what you do. If you haven’t found it yet, keep looking. Don’t settle. – Steve Jobs",Career
@@ -110,18 +76,6 @@ Why aren’t we all like that wise old bird?",Charisma
 108,"It’s not what you achieve, it’s what you overcome. That’s what defines your career.",Career
 109,"Your career is like a garden. It can hold an assortment of life’s energy: creativity, productivity, sustenance, aesthetics, and endless growth.",Career
 110,"Don’t watch the clock; do what it does. Keep going.",Career
-111,"Charisma is not just saying hello. It’s dropping what you’re doing to say hello.",Charisma
-112,"People will forget what you said, people will forget what you did, but people will never forget how you made them feel.",Charisma
-113,"Charisma isn’t about being the best talker in the room; it’s about being the best listener.",Charisma
-114,"Charisma is not about getting people to like you. It’s about inspiring them to like themselves when they’re around you.",Charisma
-115,"To be charismatic, be more interested than interesting.",Charisma
-116,"The most magnetic leaders aren’t necessarily the loudest, but the ones who are authentically themselves.",Charisma
-117,"Charisma is the ability to project confidence and love at the same time.",Charisma
-118,"Charisma begins when you let go of the need to impress and start focusing on how you can add value.",Charisma
-119,"The most charming people listen as if what you have to say is the most important thing in the world.",Charisma
-120,"Charisma isn’t about always being the center of attention; it’s about making others feel like they are.",Charisma
-121,"Charisma is not just a gift; it’s a skill that you cultivate by caring about others more than yourself.",Charisma
-122,"Charisma is the result of effective communication, not the other way around.",Charisma
 123,"Don’t wait for inspiration. It comes while working.",Creativity
 124,"Creativity doesn’t wait for that perfect moment. It fashions its own perfect moments out of ordinary ones.",Creativity
 125,"The desire to create is one of the deepest yearnings of the human soul.",Creativity
@@ -132,19 +86,6 @@ Why aren’t we all like that wise old bird?",Charisma
 130,"Have no fear of perfection; you’ll never reach it.",Creativity
 131,"Great things are not done by impulse, but by a series of small things brought together. – Vincent Van Gogh",Creativity
 132,"The true sign of intelligence is not knowledge but imagination.  – Albert Einstein",Creativity
-133,"It’s not about what you know, but about who you know—and who knows you.",Networking
-134,"Your network is your net worth.",Networking
-135,"The richest people in the world look for and build networks; everyone else looks for work.",Networking
-136,"Networking is not about just connecting people. It’s about connecting people with people, people with ideas, and people with opportunities.",Networking
-137,"The currency of real networking is not greed but generosity.",Networking
-138,"Don’t ask what your network can do for you. Ask what you can do for your network.",Networking
-139,"You can have everything in life you want if you will just help enough other people get what they want.",Networking
-140,"Your success is directly proportional to the number of people you positively impact.",Networking
-141,"In networking, sincerity is not a strategy; it’s the foundation.",Networking
-142,"If you want to go fast, go alone. If you want to go far, go with others.",Networking
-143,"The single greatest ‘people skill’ is a highly developed and authentic interest in the other person.",Networking
-144,"Your smile is your logo, your personality is your business card, and how you leave others feeling after an experience with you becomes your trademark.",Networking
-145,"Networking is a lot like nutrition and fitness: we know what to do, the hard part is making it a top priority.",Networking
 146,"The most important thing in communication is hearing what isn’t said.",Communication
 147,"Speak in such a way that others love to listen to you. Listen in such a way that others love to speak to you.",Communication
 148,"Communication works for those who work at it. – John Powell",Communication
@@ -178,7 +119,7 @@ Why aren’t we all like that wise old bird?",Charisma
 176,"The journey of a thousand miles begins with one step, but wisdom starts with a single thought.",Wisdom
 177,"The wise man doesn’t give the right answers, he poses the right questions.",Wisdom
 178,"The simple things are also the most extraordinary things, and only the wise can see them.",Wisdom
-179,"Trust your intuition. - Amal AlRoumi","Human Gifts"
+179,"Trust your intuition — Amal AlRoumi.","Human Gifts"
 180,"Go all the way. Never give up! - Jaime Zelada (USC Viterbi graduate advisor) said to me on my master's graduation day.","Human Gifts"
 181,"The way to get started is to quit talking and begin doing.",Productivity
 182,"Focus on being productive instead of busy.",Productivity
@@ -232,5 +173,315 @@ Why aren’t we all like that wise old bird?",Charisma
 230,"You find fulfillment when you stop comparing yourself to others and start focusing on your own journey.","Happiness & Fulfilment"
 231,"Don’t wait for everything to be perfect before you decide to enjoy your life.","Happiness & Fulfilment"
 232,"Happiness is not the absence of problems; it’s the ability to deal with them.","Happiness & Fulfilment"
-233,"You are your own medicine.","Mental Health"
+233,"You are your own medicine.",Health
 234,"What progress have I made? I have begun to be a friend to myself.",Wisdom
+237,"To experience time travel, read. 
+
+To achieve immortality, write.",Wisdom
+238,"Do bold things with a pleasant and friendly demeanor.",Character
+239,"When you drink water from a cup, it becomes part of you. When water falls on you like rain, it evaporates a few minutes later.
+
+Similarly, thoughts can be consumed or dismissed. Is this thought nourishing? Is this feeling something you should drink? Or is it more like getting caught in the rain?
+
+You'll always feel the rain, but you don't have to drink the rain. You can let the thought pass and in a few moments the sun will return. You don't have to claim everything you feel.",Wisdom
+240,"Even if you don't have all the things you want, be grateful for the things you don't have that you don't want. - Bob Dylan on the advice his father gave him",Gratitude
+241,"You think your pain and your heartbreak are unprecedented in the history of the world, but then you read. It was Dostoevsky and Dickens who taught me that the things that tormented me most were the very things that connected me with all the people who were alive, or who ever had been alive. Only if we face these open wounds in ourselves can we understand them in other people. An artist is a sort of emotional or spiritual historian. His role is to make you realize the doom and glory of knowing who you are and what you are.",Others
+243,"Disdain Things You Cannot Have: Ignore Them Is The Best Revenge. 
+
+By acknowledging a petty problem you give it existence and credibility. The more attention you pay an enemy, the stronger you make him; and a small mistake is often made worse and more visible when you try to fix it. It is sometimes best to leave things alone. If there is something you want but cannot have, show contempt for it. The less interest you reveal, the more superior you seem.",Others
+244,"If you want your body to run at peak performance, you have to be vigilant about consuming the highest-quality nutrients and avoid tempting junk food. If you want your mind to perform at its peak, you have to be even more vigilant about what you feed it. Avoid reading negative news, watching mind-numbing TV shows, scrolling on social media. What you feed your mind has a direct and measurable impact on your productivity and outcomes.",Health
+245,"When people get started in a new endeavor, they almost always overdo it. You need to find a program that you can absolutely, positively do in the long term without renegotiation. The compound effect—the positive results you want to experience in your life—will be the results of smart choices (and actions) repeated consistently over time. You win when you take the right steps day in and day out. But you set yourself up for failure by doing too much too soon.",Others
+247,"Someone despises me. That's their problem.",Health
+248,"Get back up when you fail. Celebrate behaving like a human.",Character
+249,"Life shrinks or expands in proportion to one's courage.",Character
+250,"Read more books. Walk in nature daily. Let go of the past. Drink more water. Say thank you a lot. Get up at 5 am. Smile at strangers. Keep a journal.","Happiness & Fulfilment"
+251,"If you want enemies, excel your friends; but if you want friends, let your friends excel you. ""To excel your friends"" means to surpass or outshine them in some way—maybe by achieving greater success, recognition, or talent in an area important to you both. On the other hand, ""letting your friends excel"" suggests supporting and celebrating their success, even if it means stepping back or choosing not to outshine them. Doing so, nurture friendship and avoid triggering competitiveness.","Love & Relationships"
+252,"The more you know yourself, the more patience you have for what you see in others.",Wisdom
+253,"Doctors won't make you healthy. Nutritionists won't make you slim. Teachers won't make you smart. Gurus won't make you calm. Mentors won't make you rich. Trainers won't make you fit. Ultimately, you have to take responsibility. Save yourself.",Wisdom
+254,"What is powerful is when what you say is just the tip of the iceberg of what you know.",Wisdom
+255,"1. Never take things personally as it's never about you. 2. Exercising and reading are the best ways to be productive in your day. 3. Charisma-wise, never ever interrupt someone's talking, and it's fine if others interrupt you. 4. Practice speaking loudly. 5. pause, if you need to, to avoid using filler words and pause for two seconds before you answer a question.","Immediate Attention Required"
+256,"Sometimes fear does not subside and one must choose to do it afraid. Poet Elisabeth Elliot on courage.",Character
+257,"Mastery is the best goal because the rich can't buy it, the impatient can't rush it, the privileged can't inherit it, and nobody can steal it. You can only earn it through hard work. Mastery is the ultimate status.",Career
+259,"A critical quality to develop in life is the willingness to try. You simply must find enough confidence to give it a go. The human mind is fabulous at learning. You will get better at whatever you practice. But before you can develop the skill to succeed, you must find the courage to attempt.",Character
+260,"Grow fast, built to crash. Grow slow, built to last.",Career
+261,"Anger is like an oven; heat without light. Forgiveness is like the moon; light without heat.",Character
+262,"Focus on what provides value to others, not what impresses others.
+
+Other people spend about as much time thinking about your lifestyle and accomplishments as you spend thinking about their lifestyle and accomplishments. Which is to say, not much time at all.
+
+The things we do to impress others rarely impress them for longer than five minutes. But the things we do to provide value for others can last a lifetime. In the long run, one of the most impressive things you can do is provide exceptional value.","Love & Relationships"
+263,"If you look for evidence that people are conspiring to hold you back and the world is working against you, then it will take you no time at all to find precisely that.
+
+If you expect to encounter helpful people and experience a world that is working with you, then you find plenty of evidence to support that view as well.
+
+The raw material for a sweet life or a bitter life is always there. The story you emphasize is the one you notice.","Happiness & Fulfilment"
+264,"Beware the stories you read or tell; subtly, at night, beneath the waters of consciousness, they are altering your world. Poet and novelist Ben Okri on the power of the mind.",Health
+266,"Most of modern life, all our diseases, are diseases of abundance, not diseases of scarcity.",Health
+267,"To have savings is to be free. Savings means freedom from debt. Money in the bank means the freedom to leave your job if the boss is intolerable or the benefits have just been yanked. And if you lose your job, having savings is the freedom to keep your house and car because you can cover your payments—if you have any to make in the first place. Having savings means you can start a business or buy land, even if the bank won’t lend to you because, ironically, your habit of savings means you don’t have a debt trail or a credit record.",Finance
+268,"What’s needed isn’t change, it is transformation. Change seeks different solutions to intractable problems. Transformation asks different questions so that we can see the problems in a new light. Transformation doesn’t just try a new set of solutions to intractable problems, it asks a new set of questions that allows us to see the problems themselves in a new light.",Others
+269,"A happy person isn't someone who is happy all the time. It's someone who interprets events in such a way that they don't lose their innate peace.","Happiness & Fulfilment"
+270,"Fear makes an issue bigger than it actually is. An issue like social anxiety gets bigger when avoided and shrinks when faced.",Health
+272,"There are many things in life that we think are true because we desperately want them to be true. The more you want something to be true, the more likely you are to believe a story that overestimates the odds of it being true.",Wisdom
+273,"When we strive to become better than we are, everything around us becomes better, too.",Character
+274,"No tree, it is said, can grow to heaven unless its roots reach down to hell.",Wisdom
+275,"All our false notions about money thus far have one common flaw—they identify money as something external to ourselves. In reality, money is something we choose to trade our life energy for.",Finance
+276,"While money has no intrinsic reality, our life energy does—at least to us. It’s tangible, and it’s finite. Life energy is all we have. It is precious because it is limited and irretrievable and because our choices about how we use it express the meaning and purpose of our time here on Earth.",Finance
+277,"Whoever's speech is bad, their fortune is bad, and whoever speaks too much makes many mistakes.",Communication
+278,"The comfort of the tongue lies in speaking less. The comfort of the heart lies in caring less. The comfort of the soul lies in committing fewer sins. The comfort of the body lies in eating less. Less is more!",Wisdom
+279,"Seek your needs with dignity, for their fulfillment is in the hands of God. This involves approaching others or situations with self-respect, humility, and independence, without compromising one's integrity or self-worth.",Character
+281,"Whoever you elevate above their worth will bring down below yours. 1) Blind Admiration: Treating someone as flawless or infallible without acknowledging their imperfections. 2) Overpraising: Consistently exaggerating someone's talents, achievements, or contributions. 3) Excessive Dependence: Relying too much on someone for emotional, financial, or professional support, making them feel indispensable. 4) Allowing Mistreatment: Accepting disrespect, neglect, or unfair treatment. 5) Overlooking Flaws: Ignoring problematic behavior, ethical issues, or character flaws. 6) Sacrificing Your Needs: Consistently putting their needs above your own. 7) Deferring Judgment: Trusting their opinions or decisions without critical thinking.",Others
+282,"The comfort of the tongue lies in speaking less.",Communication
+283,"The comfort of the heart lies in caring less","Love & Relationships"
+284,"The comfort of the soul lies in committing fewer sins.","Happiness & Fulfilment"
+286,"Such a remarkable individual. A blessing to have met you and to get to follow your journey! — Suhas Peela","Human Gifts"
+287,"You deserve it. You are fire. Glad to have met such a kind soul on campus. — Sabrina Kardashian on my master's graduation.","Human Gifts"
+288,"[I] wanted to let you know how great of an influence as a person you have had on me in knowing you in and outside of the club. — Andalib","Human Gifts"
+289,"I knew you were special when I first met you. — Naz Parsiani","Human Gifts"
+290,"He has the mind of an engineer and the heart of a poet. — Todd Khozein","Human Gifts"
+292,"Hydrate well—drink water before meals.",Health
+293,"The comfort of the body lies in eating less.",Health
+295,"The bad workouts are the most important ones. It's easy to train when you feel good, but it's crucial to show up when you don't feel like it—even if you do less than you hope. Going to the gym for 15 minutes might not improve your performance, but it reaffirms your identity. It's not always about what happens during the workout. It's about becoming the type of person who doesn't miss workouts.",Health
+296,"Aim for consistency over perfection in your workouts. Warm up properly to avoid injuries. Incorporate cardio for increased calorie burn and heart health. Incorporate compound lifts like squats and deadlifts for overall strength. Pair cardio with strength training to boost overall fitness. Rest and recover to build strength and muscle. Stretch after workouts to maintain flexibility.",Health
+297,"When asked about his silence during meetings, Rockefeller often recited a poem: A wise old owl lived in an oak, -- The more he saw the less he spoke -- The less he spoke, the more he heard -- Why aren’t we all like that wise old bird?",Character
+298,"Charisma is not about getting people to like you. It’s about inspiring them to like themselves when they’re around you. Charisma isn’t about always being the center of attention; it’s about making others feel like they are. People will forget what you said, people will forget what you did, but people will never forget how you made them feel.",Character
+299,"Charisma is the result of effective communication, not the other way around. Charisma isn’t about being the best talker in the room; it’s about being the best listener. Charisma begins when you let go of the need to impress and start focusing on how you can add value. Charisma is not just a gift; it’s a skill that you cultivate by caring about others more than yourself.",Character
+300,"Whoever's words are gentle, their love becomes obligatory. 1) Before speaking, pause to consider the impact of your words on others. 2) Replace harsh or blunt words with softer and more respectful ones. 3) Put yourself in the other person's shoes. 4) Speak calmly and slowly, avoiding a loud or rushed tone. 5) Frame your words in a constructive manner. 6) Acknowledge other's effort or contributions. 7) Pair your gentle words with a warm smile, kind gestures, or open body language. 8) Listen fully before responding.",Character
+301,"The richest people in the world look for and build networks; everyone else looks for work. The currency of real networking is not greed but generosity.",Career
+302,"Your smile is your logo, your personality is your business card, and how you leave others feeling after an experience with you becomes your trademark.",Career
+303,"You can have everything in life you want if you will just help enough other people get what they want. Your success is directly proportional to the number of people you positively impact. If you want to go fast, go alone. If you want to go far, go with others.",Career
+304,"You could leave life right now. Let that determine what you do, say, and think.",Wisdom
+305,"When you think you are too old to do something new remember you will never be younger than you are right now.",Wisdom
+306,"You, yourself, as much as anybody in the entire universe, deserve your love and affection – Buddha.","Love & Relationships"
+307,"Life is 10% what happens to us and 90% how we react to it.",Wisdom
+308,"Sometimes the people around you won’t understand your journey. They don’t need to; it’s not for them.",Wisdom
+309,"The greatest weapon against stress is our ability to choose one thought over another.  Reduce unnecessary stress to prevent emotional eating.",Health
+310,"Feelings are just visitors. Let them come and go. You don’t have to control your thoughts. You just have to stop letting them control you.",Health
+311,"May all beings be happy, 
+May all beings be free from suffering, 
+May all beings never be separated from joy, 
+May all beings live in peace and harmony.",Prayer
+312,"O Light of lights, illuminate my heart. 
+Let me see with the eyes of love,
+Hear with the ears of understanding,
+And speak with the words of kindness.",Prayer
+313,"Great Spirit,
+Let me walk in beauty and make my eyes ever behold the red and purple sunset.
+Make my hands respect the things You have made,
+And my ears sharp to hear Your voice.",Prayer
+314,"May we recognize that we are all one family,
+Connected by love, bound by the threads of compassion.
+May we find peace in our differences,
+And strength in our shared humanity.",Prayer
+315,"May I become at all times,
+Both now and forever,
+A protector for those without protection,
+A guide for those who have lost their way,
+A ship for those with oceans to cross,
+A bridge for those with rivers to cross,
+A sanctuary for those in danger,
+A lamp for those without light,
+A place of refuge for those who lack shelter,
+And a servant to all in need.",Prayer
+316,"Dear God,
+Thank You for the gift of life, for the beauty of the earth,
+For the love of family and friends,
+And for the opportunity to grow in wisdom and understanding.
+Guide me to live a life of gratitude and service.",Prayer
+317,"O Divine Source,
+Let Your light shine within me,
+Dispelling the shadows of doubt and fear.
+May I see the world through the lens of love,
+And walk the path of compassion and truth.",Prayer
+318,"Thank You, Spirit of Life,
+For the gift of each moment,
+For the laughter and the lessons,
+For the kindness of strangers and the warmth of loved ones.
+May I live with open hands and a grateful heart.",Prayer
+319,"O Infinite Wisdom,
+Guide my thoughts and actions.
+Let me seek understanding before judgment,
+And strive for peace over conflict.
+May my words be gentle, my heart humble,
+And my spirit ever open to learning.",Prayer
+320,"Lord of Love,
+Fill my heart with kindness and my soul with peace.
+Let my actions reflect Your grace,
+And may I bring joy to all whom I meet.
+Help me to be a light in times of darkness.",Prayer
+321,"May I walk gently on this earth,
+Aware of the sacredness in all things.
+May I breathe deeply of Your peace,
+And carry it within me as a beacon for others.",Prayer
+322,"With the rising of the sun,
+I offer my thanks for another day.
+May I greet the morning with joy,
+And live each moment with purpose and grace.",Prayer
+323,"Creator of all,
+May I feel Your presence in the breeze,
+Your love in the warmth of the sun,
+And Your guidance in the stillness of my heart.
+Let me be ever mindful of the beauty around me.",Prayer
+324,"As the day turns to night,
+I give thanks for its gifts and lessons.
+May my rest renew my strength,
+And my dreams inspire me to greater kindness.",Prayer
+325,"Thank You, Creator,
+For the symphony of life that surrounds me—
+The whisper of leaves, the song of the birds,
+The gentle touch of a loved one’s hand.
+May I never take for granted the wonders of Your creation.",Prayer
+326,"Source of Love,
+Teach me to love without condition,
+To forgive without hesitation,
+And to seek harmony in all my relationships.
+May my heart remain open and my spirit unwavering.",Prayer
+327,"O Source of Strength,
+Grant me the courage to face each day with grace,
+The patience to endure life’s trials with hope,
+And the wisdom to choose love over fear.
+May my strength be gentle, and my heart steadfast in compassion.",Prayer
+328,"Dear God,
+Open my heart to the beauty of Your creation,
+Let me find joy in the simple moments,
+And may my love ripple outwards,
+Touching the lives of all I meet with kindness and care.",Prayer
+329,"O Eternal Light,
+Clear my mind of unnecessary worries,
+And fill my spirit with Your peace.
+May I trust in the unfolding of Your plan,
+And walk each step with quiet confidence.",Prayer
+330,"Thank You, Loving Creator,
+For the blessings seen and unseen.
+For the strength to rise after each fall,
+And the courage to trust in Your wisdom.
+May I live each day with humility and gratitude.",Prayer
+331,"Divine Spirit,
+Help me find balance in my life,
+Harmony between my work and rest,
+Peace between my thoughts and emotions.
+May my soul reflect the stillness of Your eternal presence.",Prayer
+332,"O Radiant Source,
+Let Your light shine within me,
+Dispelling darkness and fear.
+Fill my soul with Your love,
+So I may be a beacon of warmth and hope to others.",Prayer
+333,"Guide me, O Lord,
+To walk the path You’ve set before me with purpose and trust.
+May my actions reflect Your love,
+And may I always strive to bring joy and goodness to the world.",Prayer
+334,"Teach me, O Divine,
+To live fully in each moment,
+To see Your presence in the ordinary,
+And to cherish the gifts of today.
+May my heart remain open and my soul rooted in love.",Prayer
+335,"With each new day,
+Renew my spirit, refresh my soul.
+May I greet the dawn with hope,
+And face the sunset with peace.
+Thank You for the beauty of beginnings and the wisdom of endings.",Prayer
+336,"With the rising of the sun,
+I offer my thanks for life’s new beginnings.
+For the opportunities before me,
+For the love that surrounds me,
+And for the strength to face this day with hope.",Gratitude
+337,"O Divine Guide,
+In moments of joy, I thank You for the light.
+In times of struggle, I thank You for the lessons.
+Help me to carry gratitude in my heart,
+No matter the season,
+For all is a gift from You.",Gratitude
+338,"Dear God,
+Thank You for the little things—
+The laughter of a child,
+The beauty of the stars,
+And the quiet moments of peace.
+Help me to recognize and cherish
+The abundance in my life.",Gratitude
+339,"Thank You, Creator of Love,
+For the friends and family who bring joy to my life.
+For the kindness of strangers,
+And for the bonds that remind me I am never alone.
+May I always show appreciation for those I hold dear.",Gratitude
+340,"Thank You, O Sustainer,
+For the trees that offer shade,
+The rivers that sing,
+And the flowers that color the earth.
+May I walk gently,
+Honoring the beauty of Your creation.",Gratitude
+341,"Thank You, Wise Teacher,
+For the challenges that shape me,
+The wisdom that guides me,
+And the resilience that strengthens me.
+Help me to always find growth
+In every experience You provide.",Gratitude
+342,"O Bountiful Giver,
+My heart overflows with gratitude for Your gifts—
+The beauty of life, the love of others,
+And the hope that sustains me.
+May my gratitude radiate,
+Touching all those around me.",Gratitude
+343,"Thank You, Divine Companion,
+For walking with me through the valleys and over the peaks.
+For the lessons of the journey,
+For the blessings both seen and unseen.
+May I trust in Your guidance and give thanks with each step I take.",Gratitude
+344,"Dear God,
+Help me to see the beauty in the small, simple moments—
+The gentle rustle of leaves,
+The warmth of a cup of tea,
+The kindness in a stranger’s smile.
+May I never take for granted the quiet blessings that fill my days.",Gratitude
+345,"O Gracious Creator,
+Thank You for the blessings that go unnoticed—
+The air I breathe,
+The steady rhythm of my heart,
+The strength I carry without realizing.
+Help me to see Your hand in all things,
+And to live with a grateful heart.",Gratitude
+346,"Open my eyes, O Divine,
+To the gifts that surround me each day.
+May I recognize the abundance of life—
+The food that nourishes,
+The roof that shelters,
+And the love that sustains.
+Thank You for these priceless treasures.",Gratitude
+347,"Thank You, Spirit of Life,
+For the ordinary miracles that fill my days—
+The laughter of a friend,
+The light of a new dawn,
+And the peace found in stillness.
+May I never cease to marvel at the gifts of each moment.",Gratitude
+348,"If the only prayer you ever say in your entire life is ‘Thank you,’ it will be enough — Meister Eckhart.",Gratitude
+349,"Thank You, O Source of Peace,
+For the calm within the storm,
+For the strength to endure challenges,
+And for the wisdom to find joy in simple moments.
+May I rest in the comfort of Your blessings.",Gratitude
+350,"Thank You, Eternal One,
+For the gift of time—
+The quiet mornings,
+The busy afternoons,
+And the restful nights.
+May I use each moment wisely and gratefully.",Gratitude
+351,"Gratitude unlocks the fullness of life. It turns what we have into enough, and more. It turns denial into acceptance, chaos into order, confusion into clarity. It can turn a meal into a feast, a house into a home, a stranger into a friend.",Gratitude
+352,"Thank You, Loving Guide,
+For the journey of life, with all its twists and turns.
+For the beauty of each sunrise,
+The lessons of every sunset,
+And the hope that comes with every new day.",Gratitude
+353,"O Divine Healer,
+Thank You for the healing power of time,
+For the renewal of strength,
+And for the love that mends broken hearts.
+May I always trust in Your restorative grace.",Gratitude
+354,"Thank You, Divine Weaver,
+For the connections that shape my life—
+For the friends who lift my spirit,
+The family who holds me close,
+And the strangers who show unexpected kindness.
+May I always cherish the gift of human connection.",Gratitude
+355,"At times, our own light goes out and is rekindled by a spark from another person. Each of us has cause to think with deep gratitude of those who have lighted the flame within us.",Gratitude
+356,"I feel more content. I am because I acknowledge that I have delicious coffee to drink, a home to keep me safe and warm, and a walk around the neighborhood I can take anytime. I am grateful for good books, the quiet space where I can reflect, write journals, and exercise peacefully. I overlook the fact I am handsome, healthy, and smart. I am thankful for the clubs I discovered and the friends I made, and the fun and insightful moments I had. I am excited for having goals and for making progress on them. I am grateful for the ability to buy a fancy car and help my brother financially to get married. More importantly, I am happy for the love I have for and receive from my family and friends. Life is good.",Gratitude
+357,"لا يكلف الله نفساً إلا وسعها","Arabic Quotes"
+358,"هل ترسم البيئة من حولك؟ ام البيئة هي التي ترسمك وتلونك؟","Arabic Quotes"
+359,"عندما تسير باحثاً... للوصول إلى الحقيقة... ستجد نفسك بالنهاية قد عدت إلى نقطة البداية","Arabic Quotes"
