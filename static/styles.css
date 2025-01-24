@@ -89,15 +89,15 @@ body::before {
 
 /* Navigation bar */
 .navbar {
-    padding: 5px 0; /* top and bottom padding */
-    height: 80px; /*  the height */
-    /* background: rgba(241, 192, 15, 0.9); */
+    /* padding: 5px 0;
+    height: 80px;
     background: rgb(30, 29, 29);
     transition: background 0.3s;
     position: relative;
     top: 0;
     z-index: 1000;
-    width: 100%;
+    width: 100%; */
+    transition: background 0.3s; /* optional fade if you plan to change on scroll */
 }
 
 .navbar.scrolled {
@@ -120,6 +120,10 @@ body::before {
 
 .navbar-brand:hover, .navbar-nav .nav-link:hover {
     color: #b0f4b0;
+}
+
+.navbar.bg-dark {
+    background-color: rgba(0, 0, 0, 0.7) !important;
 }
 
 .home-page .card {
@@ -433,6 +437,38 @@ a:hover {
     animation: symbolFadeIn 0.5s ease-in;
 }
 
+.quote-divider-all-quotes {
+    margin: 40px 0; /* Adjust vertical spacing between quotes */
+    display: block;
+    position: relative;
+    text-align: center;
+    transition: opacity 0.5s ease-in; /* Transition effect */
+    opacity: 1 !important;
+    animation: none; /* if you don't want it spinning or fading */
+}
+
+.quote-divider-all-quotes::before {
+    content: "";
+    display: block;
+    border-top: 5px solid gold; /* Line color */
+    position: absolute;
+    top: 50%;
+    left: 10%;
+    width: 80%;
+    z-index: 1;
+}
+
+.quote-divider-all-quotes::after {
+    content: "❖"; /* Decorative symbol */
+    display: inline-block;
+    background: #fff; /* Background matches the card background */
+    padding: 0 10px;
+    position: relative;
+    z-index: 2;
+    font-size: 24px; /* Adjust symbol size */
+    color: #000079; /* Symbol color */
+    animation: symbolFadeIn 0.5s ease-in;
+}
 
 .all-quotes-container label {
     color: white;
@@ -495,3 +531,21 @@ a:hover {
     color: #fff;
     border-color: #ffd700;
 }
+
+/* Search feature */
+.navbar .input-group {
+    min-width: 250px;
+  }
+  
+  .navbar .input-group .form-control {
+    border-radius: 25px 0 0 25px; 
+    height: 40px;
+  }
+  
+  .navbar .input-group .input-group-append .btn {
+    border-radius: 0 25px 25px 0;
+    height: 40px;
+    font-size: 0.9rem;
+    line-height: 1.2;
+    padding: 0 15px;
+  }

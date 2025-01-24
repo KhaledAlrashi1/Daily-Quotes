@@ -26,3 +26,28 @@ def create_app():
         return {'current_year': datetime.utcnow().year}
     
     return app
+
+
+""" 
+Exporting Your Quotes:
+1.	Open the SQLite Command-Line Interface:
+    sqlite3 quotes.db
+
+2. Export to CSV
+    a. .headers on
+    b. .mode csv
+    c. .output quotes_export.csv
+    d. SELECT * FROM quotes;
+    e. .quit
+"""
+
+"""
+Importing from CSV:
+1. Open the SQLite Command-Line Interface:
+    sqlite3 quotes.db
+
+2. 	Import the CSV Data:
+    a. .mode csv
+    b. .import quotes_export.csv quotes
+    c. .quit
+"""
