@@ -1,6 +1,6 @@
 # Daily Quotes
 
-A simple Flask-based web application for displaying, adding, and organizing inspirational quotes. It features daily quote rotation, category management, and a clean Bootstrap‑powered interface.
+A Flask-based web application for displaying, adding, and organizing inspirational quotes. It features daily quote rotation, category management, and a clean Bootstrap‑powered interface.
 
 ---
 
