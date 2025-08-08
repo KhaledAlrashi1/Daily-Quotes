@@ -58,8 +58,14 @@ def next_quotes():
     quote_offset, last_access_date = load_quote_offset()
     # Increment the quote_offset
     quote_offset += 1
-    # Save the updated quote_offset
-    save_quote_offset(quote_offset, last_access_date)
+    
+    # # Save the updated quote_offset
+    # save_quote_offset(quote_offset, last_access_date)
+    # return redirect(url_for('quotes.home'))
+    
+    # Update last_access_date to prevent double increment when called after a reset
+    today_str = date.today().isoformat()
+    save_quote_offset(quote_offset, today_str)
     return redirect(url_for('quotes.home'))
 
 
